@@ -1,0 +1,27 @@
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Container, Button, Divider } from "semantic-ui-react";
+
+class Home extends Component {
+  render() {
+    return (
+      <Container>
+        <h1>Home</h1>
+        <Divider/>
+        <Button.Group>
+          <Button as={Link} to="/customer" color="teal">
+            Customer
+          </Button>
+          <Button as={Link} to="/employee" color="teal">
+            Employee
+          </Button>
+          <Button as={Link} to="/job" color="teal">
+            Job
+          </Button>
+        </Button.Group>
+      </Container>
+    );
+  }
+}
+
+export default Home;
