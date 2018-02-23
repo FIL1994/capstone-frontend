@@ -9,12 +9,13 @@ class Employee extends Component {
   };
 
   componentWillMount() {
-    (async () => {
-      this.setState({
-        employees: (await axios.get("http://207.148.28.48:3000/employee")).data
-      });
-    })();
+    this.getEmployees();
   }
+
+  getEmployees = async () =>
+    this.setState({
+      employees: (await axios.get("http://207.148.28.48:3000/employee")).data
+    });
 
   render() {
     const { employees } = this.state;

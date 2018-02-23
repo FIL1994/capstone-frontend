@@ -9,12 +9,13 @@ class Job extends Component {
   };
 
   componentWillMount() {
-    (async () => {
-      this.setState({
-        jobs: (await axios.get("http://207.148.28.48:3000/job")).data
-      });
-    })();
+    this.getJobs();
   }
+
+  getJobs = async () =>
+    this.setState({
+      jobs: (await axios.get("http://207.148.28.48:3000/job")).data
+    });
 
   render() {
     const { jobs } = this.state;
@@ -44,6 +45,16 @@ class Job extends Component {
                 to={`/job/edit/${j.id}`}
                 color="yellow"
                 content="Edit"
+              />
+              <Button
+                onClick={() =>
+                  axios
+                    .delete(`http://207.148.28.48:3000/job/${j.id}`)
+                    .then(() => this.getJobs())
+                    .catch(err => console.log("delete job", j, err))
+                }
+                color="red"
+                content="Delete"
               />
             </Button.Group>
             <hr />

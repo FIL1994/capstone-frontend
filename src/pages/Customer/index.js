@@ -12,11 +12,10 @@ class Customer extends Component {
     this.getCustomers();
   }
 
-  getCustomers = async () => {
+  getCustomers = async () =>
     this.setState({
       customers: (await axios.get("http://207.148.28.48:3000/customer")).data
     });
-  };
 
   render() {
     const { customers } = this.state;
@@ -51,7 +50,16 @@ class Customer extends Component {
                 color="yellow"
                 content="Edit"
               />
-              <Button color="red" content="Delete" />
+              <Button
+                onClick={() =>
+                  axios
+                    .delete(`http://207.148.28.48:3000/customer/${c.id}`)
+                    .then(() => this.getCustomers())
+                    .catch(err => console.log("delete customer", c, err))
+                }
+                color="red"
+                content="Delete"
+              />
             </Button.Group>
             <hr />
           </div>
