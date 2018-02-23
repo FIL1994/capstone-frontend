@@ -2,10 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "axios";
+import _ from "lodash";
 
 class Job extends Component {
   state = {
-    jobs: []
+    jobs: [],
+    filter: ""
   };
 
   componentWillMount() {
@@ -17,8 +19,26 @@ class Job extends Component {
       jobs: (await axios.get("http://207.148.28.48:3000/job")).data
     });
 
+  filterJobs = () => {
+    const { jobs, filter } = this.state;
+
+    return jobs.filter(
+      (() => {
+        switch (filter) {
+          case "AVAILABLE":
+            return j => j.available === true;
+          case "CLOSED":
+            return j => !_.isEmpty(j.dateClosed);
+          default:
+            return j => true;
+            break;
+        }
+      })()
+    );
+  };
+
   render() {
-    const { jobs } = this.state;
+    const { jobs, filter } = this.state;
 
     console.log(jobs);
 
@@ -29,7 +49,26 @@ class Job extends Component {
         <Button primary as={Link} to="/job/create" style={{ marginBottom: 20 }}>
           Create Job
         </Button>
-        {jobs.map(j => (
+        <Button.Group>
+          <Button
+            color={filter === "" ? "black" : "violet"}
+            onClick={() => this.setState({ filter: "" })}
+            children="All"
+          />
+          <Button.Or />
+          <Button
+            color={filter === "AVAILABLE" ? "black" : "violet"}
+            onClick={() => this.setState({ filter: "AVAILABLE" })}
+            children="Available"
+          />
+          <Button.Or />
+          <Button
+            color={filter === "CLOSED" ? "black" : "violet"}
+            onClick={() => this.setState({ filter: "CLOSED" })}
+            children="Closed"
+          />
+        </Button.Group>
+        {this.filterJobs().map(j => (
           <div key={j.id}>
             {j.description} <br />
             {j.dateOpened || "N/A"} - {j.dateClosed || "Now"}

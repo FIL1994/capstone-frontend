@@ -16,12 +16,13 @@ class JobDetails extends Component {
     selectedEmployees: []
   };
 
-  componentDidMount() {
+  getJob = async () =>
     axios
       .get(`http://207.148.28.48:3000/job/${this.props.match.params.id}`)
       .then(res => this.setState({ job: res.data }))
       .catch(() => this.props.history.push("/job"));
 
+  getCustomers = async () =>
     axios.get(`http://207.148.28.48:3000/customer`).then(res =>
       this.setState({
         customers: res.data.map(c => ({
@@ -31,6 +32,7 @@ class JobDetails extends Component {
       })
     );
 
+  getEmployees = async () =>
     axios.get(`http://207.148.28.48:3000/employee`).then(res =>
       this.setState({
         employees: res.data.map(e => ({
@@ -39,6 +41,11 @@ class JobDetails extends Component {
         }))
       })
     );
+
+  componentDidMount() {
+    this.getJob();
+    this.getCustomers();
+    this.getEmployees();
   }
 
   addCustomer = async e => {
@@ -79,6 +86,12 @@ class JobDetails extends Component {
     console.log(selectedEmployees);
   };
 
+  makeAvailable = async () => {
+    await axios.put(
+      `http://207.148.28.48:3000/job/${this.props.match.params.id}/available`
+    );
+  };
+
   render() {
     const { job } = this.state;
 
@@ -89,14 +102,19 @@ class JobDetails extends Component {
         {!_.isEmpty(job) && (
           <Fragment>
             <div style={{ marginTop: 20 }}>
+              {!job.available && (
+                <Button primary onClick={this.makeAvailable}>
+                  Set as Available
+                </Button>
+              )}
               <Button
-                primary
+                color="yellow"
                 onClick={() => this.setState({ customerModalOpen: true })}
               >
                 Add Customer
               </Button>
               <Button
-                primary
+                color="yellow"
                 onClick={() => this.setState({ employeeModalOpen: true })}
               >
                 Add Employee(s)
