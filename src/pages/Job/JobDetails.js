@@ -46,6 +46,13 @@ class JobDetails extends Component {
     const { selectedCustomer } = this.state;
 
     if (!_.isEmpty(selectedCustomer)) {
+      axios
+        .put(
+          `http://207.148.28.48:3000/job/${
+            this.props.match.params.id
+          }/customer/${selectedCustomer.value}`
+        )
+        .then(res => console.log(res));
     }
 
     console.log(selectedCustomer);
@@ -55,7 +62,18 @@ class JobDetails extends Component {
     e.preventDefault();
     const { selectedEmployees } = this.state;
 
-    if (selectedEmployees.length > 1) {
+    if (selectedEmployees.length > 0) {
+      Promise.all(
+        selectedEmployees.map(e =>
+          axios
+            .put(
+              `http://207.148.28.48:3000/job/${
+                this.props.match.params.id
+              }/employee/${e.value}`
+            )
+            .catch(err => console.log(e, err))
+        )
+      ).then(values => console.log(values));
     }
 
     console.log(selectedEmployees);
@@ -63,6 +81,8 @@ class JobDetails extends Component {
 
   render() {
     const { job } = this.state;
+
+    console.log(job);
 
     return (
       <Container>

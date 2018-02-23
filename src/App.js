@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 
 import RMS from "./assets/RMS_No_Slogan.png";
 
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Customer from "./pages/Customer";
 import Employee from "./pages/Employee";
@@ -26,7 +27,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div id="site" className="site">
-          <Link to="/">
+          <Link to="/home">
             <img
               src={RMS}
               alt="RMS"
@@ -35,7 +36,8 @@ class App extends Component {
           </Link>
           <div className="site-content">
             <Switch>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" component={Login} />
+              <Route exact path="/home" component={Home} />
               <Route path="/customer/create" component={CreateCustomer} />
               <Route path="/customer/edit/:id" component={EditCustomer} />
               <Route path="/customer/:id" component={CustomerDetails} />
