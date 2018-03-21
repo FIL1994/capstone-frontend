@@ -15,6 +15,9 @@ class Home extends Component {
           <Button as={Link} to="/employee" color="teal">
             Employee
           </Button>
+          <Button as={Link} to="/project" color="teal">
+            Project
+          </Button>
           <Button as={Link} to="/job" color="teal">
             Job
           </Button>

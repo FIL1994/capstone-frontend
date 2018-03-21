@@ -2,66 +2,68 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "axios";
+import _ from "lodash";
+import { URLS } from "../../constants";
 
-class Customer extends Component {
+class Project extends Component {
   state = {
-    customers: []
+    projects: []
   };
 
   componentDidMount() {
-    this.getCustomers();
+    this.getProjects();
   }
 
-  getCustomers = async () =>
+  getProjects = async () =>
     this.setState({
-      customers: (await axios.get("http://207.148.28.48:3000/customer")).data
+      projects: (await axios.get(URLS.PROJECT)).data
     });
 
   render() {
-    const { customers } = this.state;
+    const { projects } = this.state;
 
-    console.log(customers);
+    console.log(projects);
 
     return (
       <Container>
-        <h1>Customers</h1>
+        <h1>Projects</h1>
         <Divider />
         <Button
           primary
           as={Link}
-          to="/customer/create"
+          to="/project/create"
           style={{ marginBottom: 20 }}
         >
-          Create Customer
+          Create Project
         </Button>
-        {customers.map(c => (
-          <div key={c.id}>
-            {c.firstName} {c.lastName}
+        {projects.map(p => (
+          <div key={p.id}>
+            {p.description} <br />
+            {p.dateOpened || "N/A"} - {p.dateClosed || "Now"}
             <Button.Group fluid>
               <Button
                 as={Link}
-                to={`/customer/${c.id}`}
+                to={`/project/${p.id}`}
                 color="green"
                 content="View"
               />
               <Button
                 as={Link}
-                to={`/customer/edit/${c.id}`}
+                to={`/project/edit/${p.id}`}
                 color="yellow"
                 content="Edit"
               />
               <Button
                 onClick={() =>
                   axios
-                    .delete(`http://207.148.28.48:3000/customer/${c.id}`)
-                    .then(() => this.getCustomers())
-                    .catch(err => console.log("delete customer", c, err))
+                    .delete(`${URLS.PROJECT}/${p.id}`)
+                    .then(() => this.getProjects())
+                    .catch(err => console.log("delete project", p, err))
                 }
                 color="red"
                 content="Delete"
               />
             </Button.Group>
-            <hr />
           </div>
         ))}
       </Container>
@@ -69,4 +71,4 @@ class Customer extends Component {
   }
 }
 
-export default Customer;
+export default Project;

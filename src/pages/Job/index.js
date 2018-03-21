@@ -10,7 +10,7 @@ class Job extends Component {
     filter: ""
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getJobs();
   }
 

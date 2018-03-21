@@ -8,7 +8,7 @@ class Employee extends Component {
     employees: []
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.getEmployees();
   }
 

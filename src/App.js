@@ -19,6 +19,11 @@ import CustomerDetails from "./pages/Customer/CustomerDetails";
 import EmployeeDetails from "./pages/Employee/EmployeeDetails";
 import JobDetails from "./pages/Job/JobDetails";
 
+import Project from "./pages/Project";
+import CreateProject from "./pages/Project/CreateProject";
+import EditProject from "./pages/Project/EditProject";
+import ProjectDetails from "./pages/Project/ProjectDetails";
+
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
@@ -47,6 +52,7 @@ class App extends Component {
                   <Menu.Item as={Link} to="/home" name="Home" />
                   <Menu.Item as={Link} to="/customer" name="Customers" />
                   <Menu.Item as={Link} to="/employee" name="Employees" />
+                  <Menu.Item as={Link} to="/project" name="Projects" />
                   <Menu.Item as={Link} to="/job" name="Jobs" />
                 </Menu.Menu>
               </Menu>
@@ -62,6 +68,11 @@ class App extends Component {
                   <Route path="/employee/edit/:id" component={EditEmployee} />
                   <Route path="/employee/:id" component={EmployeeDetails} />
                   <Route path="/employee" component={Employee} />
+
+                  <Route path="/project/create" component={CreateProject} />
+                  <Route path="/project/edit/:id" component={EditProject} />
+                  <Route path="/project/:id" component={ProjectDetails} />
+                  <Route path="/project" component={Project} />
 
                   <Route path="/job/create" component={CreateJob} />
                   <Route path="/job/edit/:id" component={EditJob} />
