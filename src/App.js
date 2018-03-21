@@ -27,6 +27,7 @@ import ProjectDetails from "./pages/Project/ProjectDetails";
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -43,7 +44,11 @@ class App extends Component {
                       <img
                         src={RMS}
                         alt="RMS"
-                        style={{ height: 30, padding: "5px 0 2px 5px", transform: "scale(1.6, 1.6)" }}
+                        style={{
+                          height: 30,
+                          padding: "5px 0 2px 5px",
+                          transform: "scale(1.6, 1.6)"
+                        }}
                       />
                     </Link>
                   }

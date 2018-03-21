@@ -5,6 +5,8 @@ import axios from "axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
 
+import { URLS } from "../../constants";
+
 class JobForm extends Component {
   state = {
     dateOpened: "",
@@ -17,7 +19,7 @@ class JobForm extends Component {
   };
 
   componentDidMount() {
-    axios.get(`http://207.148.28.48:3000/customer`).then(res =>
+    axios.get(URLS.CUSTOMER).then(res =>
       this.setState({
         customers: res.data.map(c => ({
           label: `${c.firstName} ${c.lastName}`,
@@ -26,7 +28,7 @@ class JobForm extends Component {
       })
     );
 
-    axios.get(`http://207.148.28.48:3000/employee`).then(res =>
+    axios.get(URLS.EMPLOYEE).then(res =>
       this.setState({
         employees: res.data.map(e => ({
           label: `${e.firstName} ${e.lastName}`,
@@ -40,7 +42,7 @@ class JobForm extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    
+
     const { dateOpened, description } = this.state;
 
     console.log("submit job", this.state);

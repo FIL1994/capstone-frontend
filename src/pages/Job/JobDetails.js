@@ -4,6 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
 import Modal from "../../components/Modal";
+import { URLS } from "../../constants";
 
 class JobDetails extends Component {
   state = {
@@ -18,12 +19,12 @@ class JobDetails extends Component {
 
   getJob = async () =>
     axios
-      .get(`http://207.148.28.48:3000/job/${this.props.match.params.id}`)
+      .get(`${URLS.JOB}/${this.props.match.params.id}`)
       .then(res => this.setState({ job: res.data }))
       .catch(() => this.props.history.push("/job"));
 
   getCustomers = async () =>
-    axios.get(`http://207.148.28.48:3000/customer`).then(res =>
+    axios.get(URLS.CUSTOMER).then(res =>
       this.setState({
         customers: res.data.map(c => ({
           label: `${c.firstName} ${c.lastName}`,
@@ -33,7 +34,7 @@ class JobDetails extends Component {
     );
 
   getEmployees = async () =>
-    axios.get(`http://207.148.28.48:3000/employee`).then(res =>
+    axios.get(URLS.EMPLOYEE).then(res =>
       this.setState({
         employees: res.data.map(e => ({
           label: `${e.firstName} ${e.lastName}`,
@@ -55,9 +56,9 @@ class JobDetails extends Component {
     if (!_.isEmpty(selectedCustomer)) {
       axios
         .put(
-          `http://207.148.28.48:3000/job/${
-            this.props.match.params.id
-          }/customer/${selectedCustomer.value}`
+          `${URLS.JOB}/${this.props.match.params.id}/customer/${
+            selectedCustomer.value
+          }`
         )
         .then(res => console.log(res));
     }
@@ -74,9 +75,7 @@ class JobDetails extends Component {
         selectedEmployees.map(e =>
           axios
             .put(
-              `http://207.148.28.48:3000/job/${
-                this.props.match.params.id
-              }/employee/${e.value}`
+              `${URLS.JOB}/${this.props.match.params.id}/employee/${e.value}`
             )
             .catch(err => console.log(e, err))
         )
@@ -87,9 +86,7 @@ class JobDetails extends Component {
   };
 
   makeAvailable = async () => {
-    await axios.put(
-      `http://207.148.28.48:3000/job/${this.props.match.params.id}/available`
-    );
+    await axios.put(`${URLS.JOB}/${this.props.match.params.id}/available`);
   };
 
   render() {

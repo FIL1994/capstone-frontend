@@ -4,6 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import JobForm from "./JobForm";
+import { URLS } from "../../constants";
 
 class EditJob extends Component {
   state = {
@@ -12,16 +13,13 @@ class EditJob extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://207.148.28.48:3000/job/${this.props.match.params.id}`)
+      .get(`${URLS.JOB}/${this.props.match.params.id}`)
       .then(res => this.setState({ job: res.data }))
       .catch(() => this.props.history.push("/job"));
   }
 
   handleSubmit = async newJob => {
-    await axios.put(
-      `http://207.148.28.48:3000/job/${this.props.match.params.id}`,
-      newJob
-    );
+    await axios.put(`${URLS.JOB}/${this.props.match.params.id}`, newJob);
 
     this.props.history.push("/job");
   };
