@@ -92,7 +92,7 @@ class JobForm extends Component {
           style={{ marginBottom: 20 }}
         />
         <Button primary type="submit">
-          Create Job
+          {this.props.edit ? "Edit Job" : "Create Job"}
         </Button>
       </form>
     );

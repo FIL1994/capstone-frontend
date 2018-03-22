@@ -60,11 +60,23 @@ class ProjectForm extends Component {
           style={{ marginBottom: 20 }}
         />
         <Button primary type="submit">
-          Create Project
+          {this.props.edit ? "Edit Project" : "Create Project"}
         </Button>
       </form>
     );
   }
 }
+
+ProjectForm.propTypes = {
+  edit: PropTypes.bool,
+  project: PropTypes.object,
+  onSubmit: PropTypes.func
+};
+
+ProjectForm.defaultProps = {
+  edit: false,
+  project: {},
+  onSubmit: _.noop
+};
 
 export default ProjectForm;
