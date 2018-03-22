@@ -1,14 +1,26 @@
 import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
+import { Container, Segment } from "semantic-ui-react";
 import axios from "axios";
+import _ from "lodash";
 
 import JobForm from "./JobForm";
 import { URLS } from "../../constants";
 
 class CreateJob extends Component {
-  
+  state = {
+    msg: ""
+  };
+
   handleSubmit = async newJob => {
-    await axios.post(URLS.JOB, newJob);
+    const res = await axios.post(URLS.JOB, newJob).catch(e => e);
+
+    if (_.isError(res)) {
+      console.log("Create Job Error", res, res.response);
+      this.setState({
+        msg: res.response.data
+      });
+      return;
+    }
 
     this.props.history.push("/job");
   };
@@ -16,6 +28,9 @@ class CreateJob extends Component {
   render() {
     return (
       <Container>
+        {this.state.msg && (
+          <Segment inverted color="red" children={this.state.msg} />
+        )}
         <JobForm onSubmit={this.handleSubmit} />
       </Container>
     );

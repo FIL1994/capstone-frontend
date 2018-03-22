@@ -12,18 +12,18 @@ class JobForm extends Component {
     dateOpened: "",
     description: "",
     ..._.pickBy(this.props.job, _.identity),
-    customers: [],
+    projects: [],
     employees: [],
-    selectedCustomer: "",
+    selectedProject: "",
     selectedEmployees: []
   };
 
   componentDidMount() {
-    axios.get(URLS.CUSTOMER).then(res =>
+    axios.get(URLS.PROJECT).then(res =>
       this.setState({
-        customers: res.data.map(c => ({
-          label: `${c.firstName} ${c.lastName}`,
-          value: c.id
+        projects: res.data.map(p => ({
+          label: p.description,
+          value: p.id
         }))
       })
     );
@@ -43,21 +43,40 @@ class JobForm extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
-    const { dateOpened, description } = this.state;
+    const {
+      dateOpened,
+      description,
+      selectedProject,
+      selectedEmployees
+    } = this.state;
 
     console.log("submit job", this.state);
 
     this.props.onSubmit({
       dateOpened,
-      description
+      description,
+      project: {
+        id: selectedProject.value
+      },
+      employees: selectedEmployees.map(e => ({ id: e.value }))
     });
   };
 
   render() {
     const { dateOpened, description } = this.state;
 
+    console.log("Job Form", this.state, this.props);
+
     return (
       <form onSubmit={this.handleSubmit}>
+        <label>Project</label>
+        <Select
+          options={this.state.projects}
+          onChange={selectedProject => this.setState({ selectedProject })}
+          value={this.state.selectedProject}
+          placeholder="select project"
+          style={{ marginBottom: 20 }}
+        />
         <Form.Input
           fluid
           label="Description"

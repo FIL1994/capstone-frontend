@@ -12,12 +12,12 @@ class CreateProject extends Component {
   };
 
   handleSubmit = async newProject => {
-    let response = await axios.post(URLS.PROJECT, newProject).catch(e => e);
+    const res = await axios.post(URLS.PROJECT, newProject).catch(e => e);
 
-    if (_.isError(response)) {
-      console.log("Create Project Error", response);
+    if (_.isError(res)) {
+      console.log("Create Project Error", res, res.response);
       this.setState({
-        msg: response.response.data
+        msg: res.response.data
       });
       return;
     }
