@@ -11,6 +11,7 @@ class ProjectForm extends Component {
   state = {
     dateOpened: "",
     description: "",
+    ..._.pickBy(this.props.project, _.identity),
     customers: [],
     selectedCustomer: ""
   };
@@ -30,6 +31,18 @@ class ProjectForm extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
+
+    const { dateOpened, description, selectedCustomer } = this.state;
+
+    console.log("submit project", this.state);
+
+    this.props.onSubmit({
+      dateOpened,
+      description,
+      customer: {
+        id: selectedCustomer.value
+      }
+    });
   };
 
   render() {

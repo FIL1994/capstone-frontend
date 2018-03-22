@@ -74,14 +74,6 @@ class JobForm extends Component {
           onChange={this.handleChange}
           style={{ marginBottom: 20 }}
         />
-        <label>Customer</label>
-        <Select
-          options={this.state.customers}
-          onChange={selectedCustomer => this.setState({ selectedCustomer })}
-          value={this.state.selectedCustomer}
-          placeholder="select a customer"
-          style={{ marginBottom: 20 }}
-        />
         <label>Employee(s)</label>
         <Select
           multi
