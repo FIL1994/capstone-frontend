@@ -6,11 +6,14 @@ import Select from "react-virtualized-select";
 import Modal from "../../components/Modal";
 import { URLS } from "../../constants";
 
+import MaterialForm from "./Material/MaterialForm";
+
 class JobDetails extends Component {
   state = {
     job: {},
     customerModalOpen: false,
     employeeModalOpen: false,
+    materialModalOpen: false,
     customers: [],
     employees: [],
     selectedCustomer: "",
@@ -85,6 +88,23 @@ class JobDetails extends Component {
     console.log(selectedEmployees);
   };
 
+  addMaterial = async newMaterial => {
+    const res = await axios
+      .put(`${URLS.JOB}/${this.state.job.id}/material`, newMaterial)
+      .catch(e => e);
+
+    if (_.isError(res)) {
+      console.log(res.response.data);
+      return;
+    }
+
+    this.setState({
+      materialModalOpen: false
+    });
+
+    this.getJob();
+  };
+
   makeAvailable = async () => {
     await axios.put(`${URLS.JOB}/${this.props.match.params.id}/available`);
   };
@@ -116,8 +136,14 @@ class JobDetails extends Component {
               >
                 Add Employee(s)
               </Button>
+              <Button
+                color="yellow"
+                onClick={() => this.setState({ materialModalOpen: true })}
+              >
+                Add Material
+              </Button>
             </div>
-            <Card>
+            <Card fluid>
               <Card.Content>
                 <label>Description: </label>
                 {job.description} <br />
@@ -127,6 +153,16 @@ class JobDetails extends Component {
                 {job.dateOpened} <br />
                 <label>Date Closed: </label>
                 {job.dateClosed} <br />
+                <label>Materials: </label>
+                <ul>
+                  {job.materials &&
+                    _.isArray(job.materials) &&
+                    job.materials.map(m => (
+                      <li key={m.id}>
+                        {m.description} - {m.supplier} - ${m.cost}
+                      </li>
+                    ))}
+                </ul>
               </Card.Content>
             </Card>
           </Fragment>
@@ -136,7 +172,6 @@ class JobDetails extends Component {
           onRequestClose={() =>
             this.setState({ customerModalOpen: false, selectedCustomer: "" })
           }
-          children={"customer modal"}
         >
           <form onSubmit={this.addCustomer}>
             <Select
@@ -156,7 +191,6 @@ class JobDetails extends Component {
           onRequestClose={() =>
             this.setState({ employeeModalOpen: false, selectedEmployees: [] })
           }
-          children={"employee modal"}
         >
           <form onSubmit={this.addEmployees}>
             <Select
@@ -173,6 +207,13 @@ class JobDetails extends Component {
               Add Employee(s)
             </Button>
           </form>
+        </Modal>
+        <Modal
+          isOpen={this.state.materialModalOpen}
+          onRequestClose={() => this.setState({ materialModalOpen: false })}
+          style={{ minWidth: 350 }}
+        >
+          <MaterialForm onSubmit={this.addMaterial} />
         </Modal>
       </Container>
     );
