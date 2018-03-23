@@ -24,6 +24,11 @@ import CreateProject from "./pages/Project/CreateProject";
 import EditProject from "./pages/Project/EditProject";
 import ProjectDetails from "./pages/Project/ProjectDetails";
 
+import JobHours from "./pages/JobHours";
+import CreateJobHours from "./pages/JobHours/CreateJobHours";
+import EditJobHours from "./pages/JobHours/EditJobHours";
+import JobHoursDetails from "./pages/JobHours/JobHoursDetails";
+
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
@@ -59,6 +64,7 @@ class App extends Component {
                   <Menu.Item as={Link} to="/employee" name="Employees" />
                   <Menu.Item as={Link} to="/project" name="Projects" />
                   <Menu.Item as={Link} to="/job" name="Jobs" />
+                  <Menu.Item as={Link} to="/jobhours" name="JobHours" />
                 </Menu.Menu>
               </Menu>
               <div className="site-content">
@@ -83,6 +89,12 @@ class App extends Component {
                   <Route path="/job/edit/:id" component={EditJob} />
                   <Route path="/job/:id" component={JobDetails} />
                   <Route path="/job" component={Job} />
+
+                  <Route path="/jobhours/create" component={CreateJobHours} />
+                  <Route path="/jobhours/edit/:id" component={EditJobHours} />
+                  <Route path="/jobhours/:id" component={JobHoursDetails} />
+                  <Route path="/jobhours" component={JobHours} />
+
                   <Redirect to="/" />
                 </Switch>
               </div>
