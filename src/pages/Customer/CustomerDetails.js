@@ -21,7 +21,7 @@ class CustomerDetails extends Component {
     return (
       <Container>
         {!_.isEmpty(customer) && (
-          <Card centered>
+          <Card fluid>
             <Card.Content>
               <label>First Name: </label>
               {customer.firstName} <br />

@@ -30,12 +30,13 @@ class ProjectDetails extends Component {
       <Container>
         {!_.isEmpty(project) && (
           <Fragment>
-            <Card>
+            <Card fluid>
               <Card.Content>
                 <label>Description: </label>
                 {project.description} <br />
                 <label>Customer: </label>
-                {project.customer && project.customer.firstName}
+                {project.customer &&
+                  project.customer.firstName + " " + project.customer.lastName}
                 <br />
                 <label>Date Opened: </label>
                 {project.dateOpened} <br />

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
+import { Container, Segment } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
@@ -8,7 +8,8 @@ import { URLS } from "../../constants";
 
 class EditJob extends Component {
   state = {
-    job: {}
+    job: {},
+    msg: ""
   };
 
   componentDidMount() {
@@ -19,7 +20,17 @@ class EditJob extends Component {
   }
 
   handleSubmit = async newJob => {
-    await axios.put(`${URLS.JOB}/${this.props.match.params.id}`, newJob);
+    const res = await axios
+      .put(`${URLS.JOB}/${this.props.match.params.id}`, newJob)
+      .catch(e => e);
+
+    if (_.isError(res)) {
+      console.log("Edit Job Error", res, res.response);
+      this.setState({
+        msg: res.response.data
+      });
+      return;
+    }
 
     this.props.history.push("/job");
   };
@@ -29,6 +40,9 @@ class EditJob extends Component {
 
     return (
       <Container>
+        {this.state.msg && (
+          <Segment inverted color="red" children={this.state.msg} />
+        )}
         {!_.isEmpty(job) && (
           <JobForm edit job={job} onSubmit={this.handleSubmit} />
         )}
