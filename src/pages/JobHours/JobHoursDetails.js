@@ -6,7 +6,7 @@ import Select from "react-virtualized-select";
 import Modal from "../../components/Modal";
 import { URLS } from "../../constants";
 
-class JobHoursetails extends Component {
+class JobHoursDetails extends Component {
   state = {
     jobHours: {},
     employeeModalOpen: false,
@@ -26,7 +26,7 @@ class JobHoursetails extends Component {
   getJobs = async () =>
     axios.get(URLS.JOB).then(res =>
       this.setState({
-        customers: res.data.map(c => ({
+        customers: res.data.map(j => ({
           label: `${j.id} ${j.description}`,
           value: j.id
         }))
@@ -42,7 +42,6 @@ class JobHoursetails extends Component {
         }))
       })
     );
-
 
   componentDidMount() {
     this.getJobHours();
@@ -66,7 +65,7 @@ class JobHoursetails extends Component {
 
     console.log(selectedJob);
   };
-  
+
   addEmployee = async e => {
     e.preventDefault();
     const { selectedEmployee } = this.state;
@@ -84,7 +83,6 @@ class JobHoursetails extends Component {
     console.log(selectedEmployee);
   };
 
-
   render() {
     const { jobHours } = this.state;
 
@@ -92,7 +90,7 @@ class JobHoursetails extends Component {
 
     return (
       <Container>
-        {!_.isEmpty(job) && (
+        {!_.isEmpty(jobHours) && (
           <Fragment>
             <div style={{ marginTop: 20 }}>
               <Button

@@ -7,7 +7,7 @@ class Home extends Component {
     return (
       <Container>
         <h1>Home</h1>
-        <Divider/>
+        <Divider />
         <Button.Group>
           <Button as={Link} to="/customer" color="teal">
             Customer
@@ -20,6 +20,9 @@ class Home extends Component {
           </Button>
           <Button as={Link} to="/job" color="teal">
             Job
+          </Button>
+          <Button as={Link} to="/jobhours" color="teal">
+            Job Hours
           </Button>
         </Button.Group>
       </Container>

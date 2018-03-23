@@ -19,7 +19,10 @@ class EditJobHours extends Component {
   }
 
   handleSubmit = async newJobHours => {
-    await axios.put(`${URLS.JOBHOURS}/${this.props.match.params.id}`, newJobHours);
+    await axios.put(
+      `${URLS.JOBHOURS}/${this.props.match.params.id}`,
+      newJobHours
+    );
 
     this.props.history.push("/jobhours");
   };
