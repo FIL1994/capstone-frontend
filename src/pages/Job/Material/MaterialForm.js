@@ -10,7 +10,10 @@ class MaterialForm extends Component {
   state = {
     description: "",
     supplier: "",
-    cost: ""
+    cost: "",
+    emergencyContact: "",
+    id: null,
+    ..._.pickBy(this.props.material, _.identity)
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -18,12 +21,13 @@ class MaterialForm extends Component {
   handleSubmit = async e => {
     e.preventDefault();
 
-    const { description, supplier, cost } = this.state;
+    const { description, supplier, cost, id } = this.state;
 
     this.props.onSubmit({
       description,
       supplier,
-      cost
+      cost,
+      id
     });
   };
 
@@ -64,12 +68,14 @@ class MaterialForm extends Component {
 
 MaterialForm.propTypes = {
   edit: PropTypes.bool,
-  nSubmit: PropTypes.func
+  onSubmit: PropTypes.func,
+  material: PropTypes.object
 };
 
 MaterialForm.defaultProps = {
   edit: false,
-  onSubmit: _.noop
+  onSubmit: _.noop,
+  material: {}
 };
 
 export default MaterialForm;
