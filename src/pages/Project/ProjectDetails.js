@@ -6,13 +6,17 @@ import Select from "react-virtualized-select";
 import Modal from "../../components/Modal";
 import { URLS } from "../../constants";
 
+import Invoice from "./Invoice";
+
 class ProjectDetails extends Component {
   state = {
-    project: {}
+    project: {},
+    jobs: []
   };
 
   componentDidMount() {
     this.getProject();
+    this.getJobsForProject(this.props.match.params.id);
   }
 
   getProject = async () =>
@@ -21,8 +25,14 @@ class ProjectDetails extends Component {
       .then(res => this.setState({ project: res.data }))
       .catch(() => this.props.history.push("/project"));
 
+  getJobsForProject = async projectId =>
+    axios
+      .get(`${URLS.PROJECT}/${projectId}/jobs`)
+      .then(res => this.setState({ jobs: res.data }))
+      .catch(err => console.log("error gettings jobs for project", err));
+
   render() {
-    const { project } = this.state;
+    const { project, jobs } = this.state;
 
     console.log(project);
 
@@ -42,9 +52,10 @@ class ProjectDetails extends Component {
                 {project.dateOpened} <br />
                 <label>Date Closed: </label>
                 {project.dateClosed} <br />
-                <Button children="View Invoice" />
+                {/* <Button children="View Invoice" /> */}
               </Card.Content>
             </Card>
+            <Invoice project={project} jobs={jobs} />
           </Fragment>
         )}
       </Container>
