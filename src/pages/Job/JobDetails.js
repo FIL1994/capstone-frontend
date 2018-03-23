@@ -105,6 +105,23 @@ class JobDetails extends Component {
     this.getJob();
   };
 
+  editMaterial(id) = async editMaterial => {
+    const res = await axios
+      .put(`${URLS.JOB}/${this.state.job.id}/material/${id}`, editMaterial)
+      .catch(e => e);
+
+    if (_.isError(res)) {
+      console.log(res.response.data);
+      return;
+    }
+
+    this.setState({
+      materialModalOpen: false
+    });
+
+    this.getJob();
+  }
+
   makeAvailable = async () => {
     await axios.put(`${URLS.JOB}/${this.props.match.params.id}/available`);
   };
@@ -164,13 +181,13 @@ class JobDetails extends Component {
                       </li>
                       <Button
                         color="blue"
-                        onClick={() => this.editMaterial({ materialModalOpen: true })}
+                        onClick={() => editMaterial(m.id)}
                       >
                         Edit Material
                       </Button>
                       <Button
                         color="blue"
-                        onClick={() => this.removeMaterial({ materialModalOpen: true })}
+                        onClick={() => { axios.delete(`${URLS.JOB}/${this.state.job.id}/mateiral/${}m.id`) }}
                       >
                         Remove
                       </Button>
