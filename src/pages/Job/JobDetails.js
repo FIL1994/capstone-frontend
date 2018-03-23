@@ -17,7 +17,8 @@ class JobDetails extends Component {
     customers: [],
     employees: [],
     selectedCustomer: "",
-    selectedEmployees: []
+    selectedEmployees: [],
+    selectedMaterial: {}
   };
 
   getJob = async () =>
@@ -105,9 +106,9 @@ class JobDetails extends Component {
     this.getJob();
   };
 
-  editMaterial(id) = async editMaterial => {
+  editMaterial = async editMaterial => {
     const res = await axios
-      .put(`${URLS.JOB}/${this.state.job.id}/material/${id}`, editMaterial)
+      .put(`${URLS.JOB}/${this.state.job.id}/material`, editMaterial)
       .catch(e => e);
 
     if (_.isError(res)) {
@@ -120,7 +121,7 @@ class JobDetails extends Component {
     });
 
     this.getJob();
-  }
+  };
 
   makeAvailable = async () => {
     await axios.put(`${URLS.JOB}/${this.props.match.params.id}/available`);
@@ -155,11 +156,15 @@ class JobDetails extends Component {
               </Button>
               <Button
                 color="yellow"
-                onClick={() => this.setState({ materialModalOpen: true })}
+                onClick={() =>
+                  this.setState({
+                    materialModalOpen: true,
+                    selectedMaterial: {}
+                  })
+                }
               >
                 Add Material
               </Button>
-
             </div>
             <Card fluid>
               <Card.Content>
@@ -178,20 +183,32 @@ class JobDetails extends Component {
                     job.materials.map(m => (
                       <li key={m.id}>
                         {m.description} - {m.supplier} - ${m.cost}
+                        <br />
+                        <Button
+                          color="yellow"
+                          onClick={() =>
+                            this.setState({
+                              materialModalOpen: true,
+                              selectedMaterial: m
+                            })
+                          }
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          color="red"
+                          onClick={() => {
+                            axios
+                              .delete(`${URLS.MATERIAL}/${m.id}`)
+                              .then(res => this.getJob())
+                              .catch(err =>
+                                console.log("error deleting material", err)
+                              );
+                          }}
+                        >
+                          Remove
+                        </Button>
                       </li>
-                      <Button
-                        color="blue"
-                        onClick={() => editMaterial(m.id)}
-                      >
-                        Edit Material
-                      </Button>
-                      <Button
-                        color="blue"
-                        onClick={() => { axios.delete(`${URLS.JOB}/${this.state.job.id}/mateiral/${}m.id`) }}
-                      >
-                        Remove
-                      </Button>
-
                     ))}
                 </ul>
               </Card.Content>
@@ -244,7 +261,12 @@ class JobDetails extends Component {
           onRequestClose={() => this.setState({ materialModalOpen: false })}
           style={{ minWidth: 350 }}
         >
-          <MaterialForm onSubmit={this.addMaterial} />
+          <MaterialForm
+            onSubmit={this.addMaterial}
+            {...(!_.isEmpty(this.state.selectedMaterial)
+              ? { material: this.state.selectedMaterial, edit: true }
+              : {})}
+          />
         </Modal>
       </Container>
     );
