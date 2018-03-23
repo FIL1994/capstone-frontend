@@ -142,6 +142,7 @@ class JobDetails extends Component {
               >
                 Add Material
               </Button>
+
             </div>
             <Card fluid>
               <Card.Content>
@@ -161,6 +162,19 @@ class JobDetails extends Component {
                       <li key={m.id}>
                         {m.description} - {m.supplier} - ${m.cost}
                       </li>
+                      <Button
+                        color="blue"
+                        onClick={() => this.editMaterial({ materialModalOpen: true })}
+                      >
+                        Edit Material
+                      </Button>
+                      <Button
+                        color="blue"
+                        onClick={() => this.removeMaterial({ materialModalOpen: true })}
+                      >
+                        Remove
+                      </Button>
+
                     ))}
                 </ul>
               </Card.Content>
