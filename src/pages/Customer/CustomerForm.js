@@ -11,6 +11,12 @@ class CustomerForm extends Component {
     cellPhonenumber: "",
     workPhoneNumber: "",
     companyName: "",
+    primaryContactName: "",
+    secondaryContactName: "",
+    primaryEmail: "",
+    secondaryEmail: "",
+    primaryPhoneNumber: "",
+    secondaryPhoneNumber: "",
     ..._.pickBy(this.props.customer, _.identity)
   };
 
@@ -23,7 +29,13 @@ class CustomerForm extends Component {
       email,
       cellPhoneNumber,
       workPhoneNumber,
-      companyName
+      companyName,
+      primaryContactName,
+      secondaryContactName,
+      primaryEmail,
+      secondaryEmail,
+      primaryPhoneNumber,
+      secondaryPhoneNumber
     } = this.state;
 
     console.log("submit customer", this.state);
@@ -34,7 +46,13 @@ class CustomerForm extends Component {
       email,
       cellPhoneNumber,
       workPhoneNumber,
-      companyName
+      companyName,
+      primaryContactName,
+      secondaryContactName,
+      primaryEmail,
+      secondaryEmail,
+      primaryPhoneNumber,
+      secondaryPhoneNumber
     });
   };
 
@@ -45,7 +63,13 @@ class CustomerForm extends Component {
       email,
       cellPhoneNumber,
       workPhoneNumber,
-      companyName
+      companyName,
+      primaryContactName,
+      secondaryContactName,
+      primaryEmail,
+      secondaryEmail,
+      primaryPhoneNumber,
+      secondaryPhoneNumber
     } = this.state;
 
     return (
@@ -90,6 +114,48 @@ class CustomerForm extends Component {
           label="Company Name"
           name="companyName"
           value={companyName}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          label="Primary Contact Name"
+          name="primaryContactName"
+          value={primaryContactName}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          label="Primary Email"
+          name="primaryEmail"
+          value={primaryEmail}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          label="Primary Phone Number"
+          name="primaryPhoneNumber"
+          value={companyName}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          label="Secondary Contact Name"
+          name="secondaryContactName"
+          value={secondaryContactName}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          label="Secondary Email"
+          name="secondaryEmail"
+          value={secondaryEmail}
+          onChange={this.handleChange}
+        />
+        <Form.Input
+          fluid
+          label="Secondary Phone Number"
+          name="secondaryPhoneNumber"
+          value={secondaryPhoneNumber}
           onChange={this.handleChange}
         />
         <Button primary type="submit">
