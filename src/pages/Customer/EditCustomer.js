@@ -3,6 +3,7 @@ import { Container } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
+import { URLS } from "../../constants";
 import CustomerForm from "./CustomerForm";
 
 class EditCustomer extends Component {
@@ -12,14 +13,14 @@ class EditCustomer extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://207.148.28.48:3000/customer/${this.props.match.params.id}`)
+      .get(`${URLS.CUSTOMER}/${this.props.match.params.id}`)
       .then(res => this.setState({ customer: res.data }))
       .catch(() => this.props.history.push("/customer"));
   }
 
   handleSubmit = async newCustomer => {
     await axios.put(
-      `http://207.148.28.48:3000/customer/${this.props.match.params.id}`,
+      `${URLS.CUSTOMER}/${this.props.match.params.id}`,
       newCustomer
     );
 

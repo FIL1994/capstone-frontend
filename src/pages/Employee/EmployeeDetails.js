@@ -3,6 +3,8 @@ import { Container, Card } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
+import { URLS } from "../../constants";
+
 class EmployeeDetails extends Component {
   state = {
     employee: {}
@@ -10,7 +12,7 @@ class EmployeeDetails extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://207.148.28.48:3000/employee/${this.props.match.params.id}`)
+      .get(`${URLS.EMPLOYEE}/${this.props.match.params.id}`)
       .then(res => this.setState({ employee: res.data }))
       .catch(() => this.props.history.push("/employee"));
   }
@@ -37,8 +39,6 @@ class EmployeeDetails extends Component {
               {employee.address} <br />
               <label>City: </label>
               {employee.city} <br />
-              <label>Social Insurance Number: </label>
-              {employee.socialInsuranceNumber} <br />
               <label>Payroll Start Date: </label>
               {employee.payrollStartDate} <br />
               <label>Phone Number: </label>

@@ -3,6 +3,8 @@ import { Container, Card } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
+import { URLS } from "../../constants";
+
 class CustomerDetails extends Component {
   state = {
     customer: {}
@@ -10,7 +12,7 @@ class CustomerDetails extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://207.148.28.48:3000/customer/${this.props.match.params.id}`)
+      .get(`${URLS.CUSTOMER}/${this.props.match.params.id}`)
       .then(res => this.setState({ customer: res.data }))
       .catch(() => this.props.history.push("/customer"));
   }

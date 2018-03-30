@@ -110,13 +110,13 @@ class EmployeeForm extends Component {
           value={city}
           onChange={this.handleChange}
         />
-        <Form.Input
+        {/*<Form.Input
           fluid
           label="Social Insurance Number"
           name="socialInsuranceNumber"
           value={socialInsuranceNumber}
           onChange={this.handleChange}
-        />
+        />*/}
         <Form.Input
           fluid
           label="Payroll Start Date"

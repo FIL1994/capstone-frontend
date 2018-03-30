@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import axios from "axios";
 
+import { URLS } from "../../constants";
 import CustomerForm from "./CustomerForm";
 
 class CreateCustomer extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async newCustomer => {
-    await axios.post("http://207.148.28.48:3000/customer", newCustomer);
+    await axios.post(URLS.CUSTOMER, newCustomer);
 
     this.props.history.push("/customer");
   };

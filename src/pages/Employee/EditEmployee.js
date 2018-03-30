@@ -3,6 +3,7 @@ import { Container } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
+import { URLS } from "../../constants";
 import EmployeeForm from "./EmployeeForm";
 
 class EditEmployee extends Component {
@@ -12,14 +13,14 @@ class EditEmployee extends Component {
 
   componentDidMount() {
     axios
-      .get(`http://207.148.28.48:3000/employee/${this.props.match.params.id}`)
+      .get(`${URLS.EMPLOYEE}/${this.props.match.params.id}`)
       .then(res => this.setState({ employee: res.data }))
       .catch(() => this.props.history.push("/employee"));
   }
 
   handleSubmit = async newEmployee => {
     await axios.put(
-      `http://207.148.28.48:3000/employee/${this.props.match.params.id}`,
+      `${URLS.EMPLOYEE}/${this.props.match.params.id}`,
       newEmployee
     );
 
