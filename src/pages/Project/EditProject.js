@@ -4,7 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import ProjectForm from "./ProjectForm";
-import { URLS } from "../../constants";
+import { URLS } from "constants/index";
 
 class EditProject extends Component {
   state = {

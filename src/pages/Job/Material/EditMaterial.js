@@ -4,7 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import MaterialForm from "./MaterialForm";
-import { URLS } from "../../constants";
+import { URLS } from "constants/index";
 
 class EditMaterial extends Component {
   state = {

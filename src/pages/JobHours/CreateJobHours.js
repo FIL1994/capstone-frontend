@@ -3,12 +3,13 @@ import { Container } from "semantic-ui-react";
 import axios from "axios";
 
 import JobHoursForm from "./JobHoursForm";
+import { URLS } from "constants/index";
 
 class CreateJobHours extends Component {
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async newJobHours => {
-    await axios.post("http://207.148.28.48:3000/jobhours", newJobHours);
+    await axios.post(URLS.JOB_HOURS, newJobHours);
 
     this.props.history.push("/jobhours");
   };

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container } from "semantic-ui-react";
 import axios from "axios";
 
-import { URLS } from "../../constants";
+import { URLS } from "constants/index";
 import EmployeeForm from "./EmployeeForm";
 
 class CreateEmployee extends Component {

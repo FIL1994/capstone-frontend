@@ -3,7 +3,7 @@ import { Container, Card } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 
-import { URLS } from "../../constants";
+import { URLS } from "constants/index";
 
 class CustomerDetails extends Component {
   state = {

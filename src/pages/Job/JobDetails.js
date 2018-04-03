@@ -4,7 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
 import Modal from "../../components/Modal";
-import { URLS } from "../../constants";
+import { URLS } from "constants/index";
 
 import MaterialForm from "./Material/MaterialForm";
 

@@ -13,7 +13,8 @@ export const URLS = {
   JOB: ROOT_URL + "/job",
   CUSTOMER: ROOT_URL + "/customer",
   EMPLOYEE: ROOT_URL + "/employee",
-  MATERIAL: ROOT_URL + "/material"
+  MATERIAL: ROOT_URL + "/material",
+  JOB_HOURS: ROOT_URL + "/jobhours"
 };
 
 export const OUTSIDE_RANGE = {

@@ -4,7 +4,7 @@ import axios from "axios";
 import _ from "lodash";
 
 import JobHoursForm from "./JobHoursForm";
-import { URLS } from "../../constants";
+import { URLS } from "constants/index";
 
 class EditJobHours extends Component {
   state = {
