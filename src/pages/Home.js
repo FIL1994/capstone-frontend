@@ -5,7 +5,6 @@ import { withConsumer } from "components/Context";
 
 class Home extends Component {
   render() {
-    console.log(this.props);
     return (
       <Container>
         <h1>Home - {this.props.context.state.userDetails.username}</h1>
