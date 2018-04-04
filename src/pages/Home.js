@@ -26,9 +26,6 @@ class Home extends Component {
             Job Hours
           </Button>
         </Button.Group>
-        <Button
-          children="change"
-        />
       </Container>
     );
   }

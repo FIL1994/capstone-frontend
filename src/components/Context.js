@@ -6,7 +6,8 @@ const Context = React.createContext();
 
 class Provider extends Component {
   state = {
-    userDetails: {}
+    userDetails: {},
+    hasUserDetails: false
   };
 
   actions = () => ({
@@ -18,11 +19,12 @@ class Provider extends Component {
     try {
       res = await axios.get(URLS.USER);
     } catch (e) {
-      return;
+      res = { data: {} };
     }
 
     this.setState({
-      userDetails: res.data
+      userDetails: res.data,
+      hasUserDetails: true
     });
   }
 

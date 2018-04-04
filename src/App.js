@@ -2,34 +2,37 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 
-import RMS from "./assets/RMS_No_Slogan.png";
+import RMS from "assets/RMS_No_Slogan.png";
 
-import Login from "./pages/Login";
-import Home from "./pages/Home";
-import Customer from "./pages/Customer";
-import Employee from "./pages/Employee";
-import Job from "./pages/Job";
-import CreateCustomer from "./pages/Customer/CreateCustomer";
-import CreateEmployee from "./pages/Employee/CreateEmployee";
-import CreateJob from "./pages/Job/CreateJob";
-import EditCustomer from "./pages/Customer/EditCustomer";
-import EditEmployee from "./pages/Employee/EditEmployee";
-import EditJob from "./pages/Job/EditJob";
-import CustomerDetails from "./pages/Customer/CustomerDetails";
-import EmployeeDetails from "./pages/Employee/EmployeeDetails";
-import JobDetails from "./pages/Job/JobDetails";
+import Login from "pages/Login";
+import Home from "pages/Home";
+import Customer from "pages/Customer";
+import Employee from "pages/Employee";
+import Job from "pages/Job";
+import CreateCustomer from "pages/Customer/CreateCustomer";
+import CreateEmployee from "pages/Employee/CreateEmployee";
+import CreateJob from "pages/Job/CreateJob";
+import EditCustomer from "pages/Customer/EditCustomer";
+import EditEmployee from "pages/Employee/EditEmployee";
+import EditJob from "pages/Job/EditJob";
+import CustomerDetails from "pages/Customer/CustomerDetails";
+import EmployeeDetails from "pages/Employee/EmployeeDetails";
+import JobDetails from "pages/Job/JobDetails";
 
-import Project from "./pages/Project";
-import CreateProject from "./pages/Project/CreateProject";
-import EditProject from "./pages/Project/EditProject";
-import ProjectDetails from "./pages/Project/ProjectDetails";
+import Project from "pages/Project";
+import CreateProject from "pages/Project/CreateProject";
+import EditProject from "pages/Project/EditProject";
+import ProjectDetails from "pages/Project/ProjectDetails";
 
-import JobHours from "./pages/JobHours";
-import CreateJobHours from "./pages/JobHours/CreateJobHours";
-import EditJobHours from "./pages/JobHours/EditJobHours";
-import JobHoursDetails from "./pages/JobHours/JobHoursDetails";
+import JobHours from "pages/JobHours";
+import CreateJobHours from "pages/JobHours/CreateJobHours";
+import EditJobHours from "pages/JobHours/EditJobHours";
+import JobHoursDetails from "pages/JobHours/JobHoursDetails";
+
+import Page_401 from "pages/401";
 
 import { Provider } from "components/Context";
+import withAuth from "components/withAuth";
 
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
@@ -42,7 +45,7 @@ class App extends Component {
       <BrowserRouter>
         <Provider>
           <Switch>
-            <Route exact path="/" component={Login} />'
+            <Route exact path="/" component={Login} />
             <Route>
               <div id="site" className="site">
                 <Menu>
@@ -72,31 +75,69 @@ class App extends Component {
                 </Menu>
                 <div className="site-content">
                   <Switch>
-                    <Route exact path="/home" component={Home} />
-                    <Route path="/customer/create" component={CreateCustomer} />
-                    <Route path="/customer/edit/:id" component={EditCustomer} />
-                    <Route path="/customer/:id" component={CustomerDetails} />
-                    <Route path="/customer" component={Customer} />
+                    <Route exact path="/home" component={withAuth(Home)} />
+                    <Route
+                      path="/customer/create"
+                      component={withAuth(CreateCustomer)}
+                    />
+                    <Route
+                      path="/customer/edit/:id"
+                      component={withAuth(EditCustomer)}
+                    />
+                    <Route
+                      path="/customer/:id"
+                      component={withAuth(CustomerDetails)}
+                    />
+                    <Route path="/customer" component={withAuth(Customer)} />
 
-                    <Route path="/employee/create" component={CreateEmployee} />
-                    <Route path="/employee/edit/:id" component={EditEmployee} />
-                    <Route path="/employee/:id" component={EmployeeDetails} />
-                    <Route path="/employee" component={Employee} />
+                    <Route
+                      path="/employee/create"
+                      component={withAuth(CreateEmployee)}
+                    />
+                    <Route
+                      path="/employee/edit/:id"
+                      component={withAuth(EditEmployee)}
+                    />
+                    <Route
+                      path="/employee/:id"
+                      component={withAuth(EmployeeDetails)}
+                    />
+                    <Route path="/employee" component={withAuth(Employee)} />
 
-                    <Route path="/project/create" component={CreateProject} />
-                    <Route path="/project/edit/:id" component={EditProject} />
-                    <Route path="/project/:id" component={ProjectDetails} />
-                    <Route path="/project" component={Project} />
+                    <Route
+                      path="/project/create"
+                      component={withAuth(CreateProject)}
+                    />
+                    <Route
+                      path="/project/edit/:id"
+                      component={withAuth(EditProject)}
+                    />
+                    <Route
+                      path="/project/:id"
+                      component={withAuth(ProjectDetails)}
+                    />
+                    <Route path="/project" component={withAuth(Project)} />
 
-                    <Route path="/job/create" component={CreateJob} />
-                    <Route path="/job/edit/:id" component={EditJob} />
-                    <Route path="/job/:id" component={JobDetails} />
-                    <Route path="/job" component={Job} />
+                    <Route path="/job/create" component={withAuth(CreateJob)} />
+                    <Route path="/job/edit/:id" component={withAuth(EditJob)} />
+                    <Route path="/job/:id" component={withAuth(JobDetails)} />
+                    <Route path="/job" component={withAuth(Job)} />
 
-                    <Route path="/jobhours/create" component={CreateJobHours} />
-                    <Route path="/jobhours/edit/:id" component={EditJobHours} />
-                    <Route path="/jobhours/:id" component={JobHoursDetails} />
-                    <Route path="/jobhours" component={JobHours} />
+                    <Route
+                      path="/jobhours/create"
+                      component={withAuth(CreateJobHours)}
+                    />
+                    <Route
+                      path="/jobhours/edit/:id"
+                      component={withAuth(EditJobHours)}
+                    />
+                    <Route
+                      path="/jobhours/:id"
+                      component={withAuth(JobHoursDetails)}
+                    />
+                    <Route path="/jobhours" component={withAuth(JobHours)} />
+
+                    <Route path="/401" component={Page_401} />
 
                     <Redirect to="/" />
                   </Switch>
