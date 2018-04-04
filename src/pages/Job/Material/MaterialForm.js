@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Form, Button } from "semantic-ui-react";
-import axios from "axios";
 import _ from "lodash";
 
 import { URLS } from "../../../constants";

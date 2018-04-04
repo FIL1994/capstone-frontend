@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Segment } from "semantic-ui-react";
-import axios from "axios";
+import axios from "helpers/axios";
 import _ from "lodash";
 
 import JobForm from "./JobForm";

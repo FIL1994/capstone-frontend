@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Form, Button } from "semantic-ui-react";
-import axios from "axios";
+import axios from "helpers/axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
 

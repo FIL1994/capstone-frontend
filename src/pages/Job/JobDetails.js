@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Container, Card, Button } from "semantic-ui-react";
-import axios from "axios";
+import axios from "helpers/axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
 import Modal from "../../components/Modal";

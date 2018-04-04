@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
+import axios, { auth } from "helpers/axios";
 
 class Home extends Component {
   render() {
@@ -25,6 +26,10 @@ class Home extends Component {
             Job Hours
           </Button>
         </Button.Group>
+        <Button
+          children="change"
+          onClick={() => (axios.defaults.auth = { username: "", password: "" })}
+        />
       </Container>
     );
   }

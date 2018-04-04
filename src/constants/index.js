@@ -14,7 +14,9 @@ export const URLS = {
   CUSTOMER: ROOT_URL + "/customer",
   EMPLOYEE: ROOT_URL + "/employee",
   MATERIAL: ROOT_URL + "/material",
-  JOB_HOURS: ROOT_URL + "/jobhours"
+  JOB_HOURS: ROOT_URL + "/jobhours",
+  LOGOUT: ROOT_URL + "/logmeout",
+  USER: ROOT_URL + "/user"
 };
 
 export const OUTSIDE_RANGE = {
