@@ -7,13 +7,3 @@ import "react-dates/lib/css/_datepicker.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
-// (async () => {
-//   let res = await axios.get("http://localhost:3000", {
-//     auth: {
-//       username: "bob",
-//       password: "password"
-//     }
-//   });
-
-//   console.log("res", res);
-// })();
