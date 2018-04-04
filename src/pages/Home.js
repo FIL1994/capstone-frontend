@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
-import axios, { auth } from "helpers/axios";
 import { withConsumer } from "components/Context";
 
 class Home extends Component {
@@ -30,7 +29,6 @@ class Home extends Component {
         </Button.Group>
         <Button
           children="change"
-          onClick={() => (axios.defaults.auth = { username: "", password: "" })}
         />
       </Container>
     );
