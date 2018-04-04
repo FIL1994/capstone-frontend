@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { Container, Button, Divider, Form, Segment } from "semantic-ui-react";
+import {
+  Container,
+  Button,
+  Divider,
+  Form,
+  Segment,
+  Message
+} from "semantic-ui-react";
 import _ from "lodash";
 import axios, { updateAuth, saveAuth } from "helpers/axios";
 
@@ -11,7 +18,8 @@ import "./login.css";
 class Login extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    errMsg: ""
   };
 
   onChange = ({ target: { name, value } }) => this.setState({ [name]: value });
@@ -28,7 +36,17 @@ class Login extends Component {
       .catch(err => err);
 
     if (_.isError(res)) {
+      if (res.response) {
+        if (res.response.status === 401) {
+          this.setState({ errMsg: "Incorrect username or password" });
+        } else {
+          this.setState({ errMsg: res.response.data });
+        }
+      } else {
+        this.setState({ errMsg: res.message });
+      }
     } else if (_.isEmpty(res.data.username)) {
+      this.setState({ errMsg: "Could not login. Try again later." });
     } else {
       const userDetails = res.data;
       saveAuth(auth);
@@ -40,7 +58,7 @@ class Login extends Component {
   };
 
   render() {
-    console.log(this.props.context);
+    const { errMsg } = this.state;
 
     return (
       <Container style={{ margin: "auto", textAlign: "center" }}>
@@ -75,6 +93,7 @@ class Login extends Component {
               color="vk"
             />
           </Form>
+          {errMsg && <Message error content={errMsg} />}
         </Segment>
       </Container>
     );
