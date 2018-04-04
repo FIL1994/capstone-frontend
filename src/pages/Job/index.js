@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
-import axios from "axios";
+import axios from "helpers/axios";
 import _ from "lodash";
 
 class Job extends Component {
