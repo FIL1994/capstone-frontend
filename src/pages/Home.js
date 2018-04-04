@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios, { auth } from "helpers/axios";
+import { withConsumer } from "components/Context";
 
 class Home extends Component {
   render() {
+    console.log(this.props);
     return (
       <Container>
-        <h1>Home</h1>
+        <h1>Home - {this.props.context.state.userDetails.username}</h1>
         <Divider />
         <Button.Group>
           <Button as={Link} to="/customer" color="teal">
@@ -35,4 +37,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withConsumer(Home);

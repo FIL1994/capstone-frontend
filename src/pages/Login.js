@@ -3,6 +3,7 @@ import { Container, Button, Divider, Form, Segment } from "semantic-ui-react";
 import _ from "lodash";
 import axios, { updateAuth, saveAuth } from "helpers/axios";
 
+import { withConsumer } from "components/Context";
 import RMS from "../assets/RMS_No_Slogan.png";
 import { URLS } from "constants/index";
 import "./login.css";
@@ -31,6 +32,7 @@ class Login extends Component {
     } else {
       const userDetails = res.data;
       saveAuth(auth);
+      this.props.context.actions.setUserDetails(userDetails);
       this.props.history.push("/home");
     }
 
@@ -38,6 +40,8 @@ class Login extends Component {
   };
 
   render() {
+    console.log(this.props.context);
+
     return (
       <Container style={{ margin: "auto", textAlign: "center" }}>
         <img
@@ -77,4 +81,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withConsumer(Login);
