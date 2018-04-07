@@ -3,12 +3,8 @@ import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import _ from "lodash";
 import axios from "helpers/axios";
-import {
-  Column,
-  Table,
-  WindowScroller,
-  SortDirection
-} from "react-virtualized";
+import { Column, SortDirection } from "react-virtualized";
+import Table from "components/Table";
 
 import { URLS } from "constants/index";
 
@@ -36,7 +32,8 @@ class Customer extends Component {
     });
   };
 
-  sortTable = ({ sortBy, sortDirection }) => this.setState({ sortBy, sortDirection });
+  sortTable = ({ sortBy, sortDirection }) =>
+    this.setState({ sortBy, sortDirection });
 
   render() {
     const { customers, sortBy, sortDirection } = this.state;
@@ -62,64 +59,50 @@ class Customer extends Component {
           Create Customer
         </Button>
 
-        <WindowScroller>
-          {({ width, height, isScrolling, onChildScroll, scrollTop }) => (
-            <Table
-              autoHeight
-              height={height}
-              width={width}
-              isScrolling={isScrolling}
-              onChildScroll={onChildScroll}
-              scrollTop={scrollTop}
-
-              headerHeight={20}
-              rowHeight={40}
-              rowCount={sortedList.length}
-              rowGetter={({ index }) => sortedList[index]}
-              onRowClick={({ rowData: { id } }) =>
-                this.props.history.push(`/customer/${id}`)
-              }
-              sort={this.sortTable}
-              sortBy={sortBy}
-              sortDirection={sortDirection}
-            >
-              <Column label="ID" dataKey="id" width={60} />
-              <Column label="Company" dataKey="companyName" width={200} />
-              <Column label="Name" dataKey="name" width={180} />
-              <Column
-                disableSort
-                label="Actions"
-                dataKey=""
-                width={300}
-                cellDataGetter={({ rowData: { id } }) => id}
-                cellRenderer={({ cellData: id }) => (
-                  <Fragment>
-                    <Button.Group fluid>
-                      <Button
-                        as={Link}
-                        to={`/customer/edit/${id}`}
-                        color="yellow"
-                        content="Edit"
-                        onClick={e => e.stopPropagation()}
-                      />
-                      <Button
-                        onClick={e => {
-                          e.stopPropagation();
-                          axios
-                            .delete(`${URLS.CUSTOMER}/${id}`)
-                            .then(() => this.getCustomers())
-                            .catch(err => console.log("delete customer", err));
-                        }}
-                        color="red"
-                        content="Delete"
-                      />
-                    </Button.Group>
-                  </Fragment>
-                )}
-              />
-            </Table>
-          )}
-        </WindowScroller>
+        <Table
+          data={sortedList}
+          onRowClick={({ rowData: { id } }) =>
+            this.props.history.push(`/customer/${id}`)
+          }
+          sort={this.sortTable}
+          sortBy={sortBy}
+          sortDirection={sortDirection}
+        >
+          <Column label="ID" dataKey="id" width={60} />
+          <Column label="Company" dataKey="companyName" width={200} />
+          <Column label="Name" dataKey="name" width={180} />
+          <Column
+            disableSort
+            label="Actions"
+            dataKey=""
+            width={300}
+            cellDataGetter={({ rowData: { id } }) => id}
+            cellRenderer={({ cellData: id }) => (
+              <Fragment>
+                <Button.Group fluid>
+                  <Button
+                    as={Link}
+                    to={`/customer/edit/${id}`}
+                    color="yellow"
+                    content="Edit"
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      axios
+                        .delete(`${URLS.CUSTOMER}/${id}`)
+                        .then(() => this.getCustomers())
+                        .catch(err => console.log("delete customer", err));
+                    }}
+                    color="red"
+                    content="Delete"
+                  />
+                </Button.Group>
+              </Fragment>
+            )}
+          />
+        </Table>
 
         {/*customers.map(c => (
           <div key={c.id}>
