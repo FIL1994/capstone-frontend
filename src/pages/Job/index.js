@@ -4,6 +4,8 @@ import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 
+import { URLS } from "constants/index";
+
 class Job extends Component {
   state = {
     jobs: [],
@@ -16,7 +18,7 @@ class Job extends Component {
 
   getJobs = async () =>
     this.setState({
-      jobs: (await axios.get("http://207.148.28.48:3000/job")).data
+      jobs: (await axios.get(URLS.JOB)).data
     });
 
   filterJobs = () => {

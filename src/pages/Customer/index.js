@@ -1,7 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "helpers/axios";
+import { Column, Table } from "react-virtualized";
+
+import { URLS } from "constants/index";
 
 class Customer extends Component {
   state = {
@@ -14,7 +17,7 @@ class Customer extends Component {
 
   getCustomers = async () =>
     this.setState({
-      customers: (await axios.get("http://207.148.28.48:3000/customer")).data
+      customers: (await axios.get(URLS.CUSTOMER)).data
     });
 
   render() {
@@ -34,7 +37,61 @@ class Customer extends Component {
         >
           Create Customer
         </Button>
-        {customers.map(c => (
+
+        <Table
+          width={800}
+          height={600}
+          headerHeight={20}
+          rowHeight={30}
+          rowCount={customers.length}
+          rowGetter={({ index }) => customers[index]}
+        >
+          <Column label="ID" dataKey="id" width={60} />
+          <Column label="Company" dataKey="companyName" width={200} />
+          <Column
+            label="Name"
+            dataKey=""
+            width={180}
+            cellDataGetter={({ rowData: { firstName, lastName } }) =>
+              `${firstName} ${lastName}`
+            }
+          />
+          <Column
+            label="Actions"
+            dataKey="id"
+            width={200}
+            cellRenderer={({ cellData: id }) => (
+              <Fragment>
+                <Button.Group fluid>
+                  <Button
+                    as={Link}
+                    to={`/customer/${id}`}
+                    color="green"
+                    content="View"
+                  />
+                  <Button
+                    as={Link}
+                    to={`/customer/edit/${id}`}
+                    color="yellow"
+                    content="Edit"
+                  />
+                  <Button
+                    onClick={() =>
+                      axios
+                        .delete(`${URLS.CUSTOMER}/${id}`)
+                        .then(() => this.getCustomers())
+                        .catch(err => console.log("delete customer", err))
+                    }
+                    color="red"
+                    content="Delete"
+                  />
+                </Button.Group>
+              </Fragment>
+            )}
+          />
+        </Table>
+
+        {/*customers.map(c => (
           <div key={c.id}>
             {c.firstName} {c.lastName}
             <Button.Group fluid>
@@ -63,7 +120,7 @@ class Customer extends Component {
             </Button.Group>
             <hr />
           </div>
-        ))}
+        ))*/}
       </Container>
     );
   }

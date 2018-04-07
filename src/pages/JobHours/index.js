@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
+import { URLS } from "constants/index";
 
 class JobHours extends Component {
   state = {
@@ -15,7 +16,7 @@ class JobHours extends Component {
 
   getJobHours = async () =>
     this.setState({
-      jobHours: (await axios.get("http://207.148.28.48:3000/jobhours")).data
+      jobHours: (await axios.get(URLS.JOB_HOURS)).data
     });
 
   render() {

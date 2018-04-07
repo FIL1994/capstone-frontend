@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "helpers/axios";
 
+import { URLS } from "constants/index";
+
 class Employee extends Component {
   state = {
     employees: []
@@ -14,7 +16,7 @@ class Employee extends Component {
 
   getEmployees = async () =>
     this.setState({
-      employees: (await axios.get("http://207.148.28.48:3000/employee")).data
+      employees: (await axios.get(URLS.EMPLOYEE)).data
     });
 
   render() {
