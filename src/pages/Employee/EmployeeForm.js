@@ -14,7 +14,6 @@ class EmployeeForm extends Component {
     birthDate: "",
     address: "",
     city: "",
-    socialInsuranceNumber: "",
     payrollStartDate: "",
     phoneNumber: "",
     postalCode: "",
@@ -32,7 +31,6 @@ class EmployeeForm extends Component {
       birthDate,
       address,
       city,
-      socialInsuranceNumber,
       payrollStartDate,
       phoneNumber,
       postalCode
@@ -47,7 +45,6 @@ class EmployeeForm extends Component {
       birthDate,
       address,
       city,
-      socialInsuranceNumber,
       payrollStartDate,
       phoneNumber,
       postalCode
@@ -62,7 +59,6 @@ class EmployeeForm extends Component {
       birthDate,
       address,
       city,
-      socialInsuranceNumber,
       payrollStartDate,
       phoneNumber,
       postalCode,
@@ -112,13 +108,6 @@ class EmployeeForm extends Component {
           value={city}
           onChange={this.handleChange}
         />
-        {/*<Form.Input
-          fluid
-          label="Social Insurance Number"
-          name="socialInsuranceNumber"
-          value={socialInsuranceNumber}
-          onChange={this.handleChange}
-        />*/}
         <Form.Input
           fluid
           label="Payroll Start Date"

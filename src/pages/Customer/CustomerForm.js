@@ -134,7 +134,7 @@ class CustomerForm extends Component {
           fluid
           label="Primary Phone Number"
           name="primaryPhoneNumber"
-          value={companyName}
+          value={primaryPhoneNumber}
           onChange={this.handleChange}
         />
         <Form.Input

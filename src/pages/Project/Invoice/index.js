@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import _ from "lodash";
 
 import RMS from "../../../assets/RMS_No_Slogan.png";
 

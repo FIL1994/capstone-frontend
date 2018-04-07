@@ -48,7 +48,6 @@ class Job extends Component {
             return j => !_.isEmpty(j.dateClosed);
           default:
             return j => true;
-            break;
         }
       })()
     );
