@@ -17,8 +17,6 @@ const Navbar = props => {
     ? []
     : authorities.map(a => a.authority);
 
-  console.log("navbar", roles);
-
   return (
     <Menu>
       <Menu.Item

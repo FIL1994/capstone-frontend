@@ -28,10 +28,12 @@ import CreateJobHours from "pages/JobHours/CreateJobHours";
 import EditJobHours from "pages/JobHours/EditJobHours";
 import JobHoursDetails from "pages/JobHours/JobHoursDetails";
 
+import Admin from "pages/Admin";
 import Page_401 from "pages/401";
 
 import { Provider } from "components/Context";
 import withAuth from "components/withAuth";
+import { ROLES } from "constants/index";
 
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
@@ -111,6 +113,11 @@ class App extends Component {
                       component={withAuth(JobHoursDetails)}
                     />
                     <Route path="/jobhours" component={withAuth(JobHours)} />
+
+                    <Route
+                      path="/admin"
+                      component={withAuth(Admin, [ROLES.ADMIN])}
+                    />
 
                     <Route path="/401" component={Page_401} />
 
