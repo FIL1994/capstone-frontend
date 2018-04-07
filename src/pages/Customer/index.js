@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
-import _ from "lodash";
 import axios from "helpers/axios";
+import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
 import Table from "components/Table";
 
@@ -74,66 +74,37 @@ class Customer extends Component {
           <Column
             disableSort
             label="Actions"
-            dataKey=""
-            width={300}
+            dataKey="actions"
+            width={120}
+            headerClassName="center-cell"
+            className="center-cell"
             cellDataGetter={({ rowData: { id } }) => id}
             cellRenderer={({ cellData: id }) => (
               <Fragment>
-                <Button.Group fluid>
-                  <Button
-                    as={Link}
-                    to={`/customer/edit/${id}`}
-                    color="yellow"
-                    content="Edit"
-                    onClick={e => e.stopPropagation()}
-                  />
-                  <Button
-                    onClick={e => {
-                      e.stopPropagation();
-                      axios
-                        .delete(`${URLS.CUSTOMER}/${id}`)
-                        .then(() => this.getCustomers())
-                        .catch(err => console.log("delete customer", err));
-                    }}
-                    color="red"
-                    content="Delete"
-                  />
-                </Button.Group>
+                <Button
+                  as={Link}
+                  to={`/customer/edit/${id}`}
+                  circular
+                  color="vk"
+                  icon="edit"
+                  onClick={e => e.stopPropagation()}
+                />
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    axios
+                      .delete(`${URLS.CUSTOMER}/${id}`)
+                      .then(() => this.getCustomers())
+                      .catch(err => console.log("delete customer", err));
+                  }}
+                  circular
+                  color="red"
+                  icon="delete"
+                />
               </Fragment>
             )}
           />
         </Table>
-
-        {/*customers.map(c => (
-          <div key={c.id}>
-            {c.firstName} {c.lastName}
-            <Button.Group fluid>
-              <Button
-                as={Link}
-                to={`/customer/${c.id}`}
-                color="green"
-                content="View"
-              />
-              <Button
-                as={Link}
-                to={`/customer/edit/${c.id}`}
-                color="yellow"
-                content="Edit"
-              />
-              <Button
-                onClick={() =>
-                  axios
-                    .delete(`http://207.148.28.48:3000/customer/${c.id}`)
-                    .then(() => this.getCustomers())
-                    .catch(err => console.log("delete customer", c, err))
-                }
-                color="red"
-                content="Delete"
-              />
-            </Button.Group>
-            <hr />
-          </div>
-        ))*/}
       </Container>
     );
   }
