@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route, Redirect, Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
-import RMS from "assets/RMS_No_Slogan.png";
+import Navbar from "components/Navbar";
 
 import Login from "pages/Login";
 import Home from "pages/Home";
@@ -48,31 +47,7 @@ class App extends Component {
             <Route exact path="/" component={Login} />
             <Route>
               <div id="site" className="site">
-                <Menu>
-                  <Menu.Item
-                    children={
-                      <Link to="/home">
-                        <img
-                          src={RMS}
-                          alt="RMS"
-                          style={{
-                            height: 30,
-                            padding: "5px 0 2px 5px",
-                            transform: "scale(1.6, 1.6)"
-                          }}
-                        />
-                      </Link>
-                    }
-                  />
-                  <Menu.Menu position="right">
-                    <Menu.Item as={Link} to="/home" name="Home" />
-                    <Menu.Item as={Link} to="/customer" name="Customers" />
-                    <Menu.Item as={Link} to="/employee" name="Employees" />
-                    <Menu.Item as={Link} to="/project" name="Projects" />
-                    <Menu.Item as={Link} to="/job" name="Jobs" />
-                    <Menu.Item as={Link} to="/jobhours" name="JobHours" />
-                  </Menu.Menu>
-                </Menu>
+                <Navbar />
                 <div className="site-content">
                   <Switch>
                     <Route exact path="/home" component={withAuth(Home)} />
