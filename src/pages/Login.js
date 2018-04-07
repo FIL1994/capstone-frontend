@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import {
   Container,
   Button,
-  Divider,
   Form,
   Segment,
   Message
 } from "semantic-ui-react";
 import _ from "lodash";
-import axios, { updateAuth, saveAuth } from "helpers/axios";
+import { updateAuth, saveAuth } from "helpers/axios";
 
 import { withConsumer } from "components/Context";
 import RMS from "../assets/RMS_No_Slogan.png";
