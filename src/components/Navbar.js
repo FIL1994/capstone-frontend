@@ -5,6 +5,7 @@ import _ from "lodash";
 
 import RMS from "assets/RMS_No_Slogan.png";
 import { withConsumer } from "components/Context";
+import { ROLES } from "constants/roles";
 
 const Navbar = props => {
   const authorities =
@@ -42,7 +43,7 @@ const Navbar = props => {
         <Menu.Item as={Link} to="/project" name="Projects" />
         <Menu.Item as={Link} to="/job" name="Jobs" />
         <Menu.Item as={Link} to="/jobhours" name="JobHours" />
-        {roles.includes("ROLE_ADMIN") && (
+        {roles.includes(ROLES.ADMIN) && (
           <Menu.Item as={Link} to="/admin" name="Admin" />
         )}
       </Menu.Menu>
