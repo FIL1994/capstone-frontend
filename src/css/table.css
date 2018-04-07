@@ -1,0 +1,13 @@
+.ReactVirtualized__Table__row {
+    cursor: pointer;
+}
+
+.ReactVirtualized__Table__row:hover {
+    background-color: #a2a2a212;
+    box-shadow: 1px 1px 2px 0px #0000004a;
+}
+
+.ReactVirtualized__Table__row:focus {
+    background-color: #d2d2d282;
+    box-shadow: inset 1px 1px 2px 0px #0000004a;
+}
