@@ -24,14 +24,14 @@ class Project extends Component {
 
     projects.map(p => {
       const c = p.customer || {};
-      p.customerName = c.firstName + " " + c.lastName;
+      p.customerName = c.companyName;
       return p;
     });
 
     this.setState({
       projects
     });
-  }
+  };
 
   sortTable = ({ sortBy, sortDirection }) =>
     this.setState({ sortBy, sortDirection });
@@ -49,7 +49,7 @@ class Project extends Component {
 
     return (
       <Container>
-        <h1>Projects</h1>
+        <h1>Projects ({sortedList.length})</h1>
         <Divider />
         <Button
           primary
