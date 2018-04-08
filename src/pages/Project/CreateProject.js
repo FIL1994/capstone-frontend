@@ -11,6 +11,10 @@ class CreateProject extends Component {
     msg: ""
   };
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleSubmit = async newProject => {
     const res = await axios.post(URLS.PROJECT, newProject).catch(e => e);
 

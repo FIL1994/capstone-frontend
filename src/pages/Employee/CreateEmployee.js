@@ -6,6 +6,10 @@ import { URLS } from "constants/index";
 import EmployeeForm from "./EmployeeForm";
 
 class CreateEmployee extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async newEmployee => {

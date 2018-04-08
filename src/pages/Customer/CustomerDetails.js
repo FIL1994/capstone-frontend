@@ -11,6 +11,8 @@ class CustomerDetails extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     axios
       .get(`${URLS.CUSTOMER}/${this.props.match.params.id}`)
       .then(res => this.setState({ customer: res.data }))

@@ -11,6 +11,8 @@ class JobHours extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     this.getJobHours();
   }
 

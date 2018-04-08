@@ -12,6 +12,8 @@ class EditJobHours extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     axios
       .get(`${URLS.JOBHOURS}/${this.props.match.params.id}`)
       .then(res => this.setState({ jobHours: res.data }))

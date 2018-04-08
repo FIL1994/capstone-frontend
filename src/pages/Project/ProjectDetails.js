@@ -13,6 +13,8 @@ class ProjectDetails extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     this.getProject();
     this.getJobsForProject(this.props.match.params.id);
   }

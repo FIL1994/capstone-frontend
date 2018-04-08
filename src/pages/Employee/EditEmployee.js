@@ -12,6 +12,8 @@ class EditEmployee extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     axios
       .get(`${URLS.EMPLOYEE}/${this.props.match.params.id}`)
       .then(res => this.setState({ employee: res.data }))

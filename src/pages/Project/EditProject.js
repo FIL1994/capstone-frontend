@@ -13,6 +13,8 @@ class EditProject extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     axios
       .get(`${URLS.PROJECT}/${this.props.match.params.id}`)
       .then(res => this.setState({ project: res.data }))

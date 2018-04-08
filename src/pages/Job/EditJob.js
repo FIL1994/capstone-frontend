@@ -13,6 +13,8 @@ class EditJob extends Component {
   };
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     axios
       .get(`${URLS.JOB}/${this.props.match.params.id}`)
       .then(res => this.setState({ job: res.data }))

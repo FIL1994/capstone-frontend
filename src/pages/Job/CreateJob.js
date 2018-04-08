@@ -11,6 +11,10 @@ class CreateJob extends Component {
     msg: ""
   };
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleSubmit = async newJob => {
     const res = await axios.post(URLS.JOB, newJob).catch(e => e);
 

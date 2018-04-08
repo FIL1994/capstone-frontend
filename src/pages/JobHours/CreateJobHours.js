@@ -6,6 +6,10 @@ import JobHoursForm from "./JobHoursForm";
 import { URLS } from "constants/index";
 
 class CreateJobHours extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async newJobHours => {

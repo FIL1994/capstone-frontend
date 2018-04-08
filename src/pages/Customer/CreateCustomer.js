@@ -6,6 +6,10 @@ import { URLS } from "constants/index";
 import CustomerForm from "./CustomerForm";
 
 class CreateCustomer extends Component {
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
   handleSubmit = async newCustomer => {

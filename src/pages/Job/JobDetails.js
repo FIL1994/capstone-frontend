@@ -48,6 +48,8 @@ class JobDetails extends Component {
     );
 
   componentDidMount() {
+    window.scrollTo(0, 0);
+    
     this.getJob();
     this.getCustomers();
     this.getEmployees();
