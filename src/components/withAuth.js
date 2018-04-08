@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { withConsumer } from "./Context";
 import _ from "lodash";
-import { ROLES } from "constants/roles";
 
 const withAuth = (Component, roles) =>
   withConsumer(props => {
