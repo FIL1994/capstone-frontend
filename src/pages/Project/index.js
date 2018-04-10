@@ -22,7 +22,7 @@ class Project extends Component {
   }
 
   getProjects = async () => {
-    let projects = (await axios.get(URLS.PROJECT)).data;
+    let projects = (await axios.get(URLS.PROJECT)).data || [];
 
     projects.map(p => {
       const c = p.customer || {};

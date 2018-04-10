@@ -22,7 +22,7 @@ class Customer extends Component {
   }
 
   getCustomers = async () => {
-    let customers = (await axios.get(URLS.CUSTOMER)).data;
+    let customers = (await axios.get(URLS.CUSTOMER)).data || [];
 
     customers.map(c => {
       c.name = c.firstName + " " + c.lastName;

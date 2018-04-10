@@ -22,7 +22,7 @@ class Employee extends Component {
   }
 
   getEmployees = async () => {
-    let employees = (await axios.get(URLS.EMPLOYEE)).data;
+    let employees = (await axios.get(URLS.EMPLOYEE)).data || [];
 
     employees.map(e => {
       e.name = e.firstName + " " + e.lastName;

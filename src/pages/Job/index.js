@@ -23,7 +23,7 @@ class Job extends Component {
   }
 
   getJobs = async () => {
-    let jobs = (await axios.get(URLS.JOB)).data;
+    let jobs = (await axios.get(URLS.JOB)).data || [];
 
     jobs.map(j => {
       const p = j.project || {};
