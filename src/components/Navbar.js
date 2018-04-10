@@ -1,11 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter, matchPath } from "react-router-dom";
 import { Menu } from "semantic-ui-react";
 import _ from "lodash";
 
 import RMS from "assets/RMS_No_Slogan.png";
 import { withConsumer } from "components/Context";
 import { ROLES } from "constants/roles";
+
+const LINKS = [
+  { name: "Home", path: "/home", isExact: true },
+  { name: "Customers", path: "/customer/", isExact: false },
+  { name: "Employees", path: "/employee/", isExact: false },
+  { name: "Projects", path: "/project/", isExact: false },
+  { name: "Jobs", path: "/job/", isExact: false },
+  { name: "Jobs Hours", path: "/jobhours/", isExact: false }
+];
+
+const ADMIN_LINK = { name: "Admin", path: "/admin/", isExact: false };
 
 const Navbar = props => {
   const authorities =
@@ -35,18 +46,33 @@ const Navbar = props => {
         }
       />
       <Menu.Menu position="right">
-        <Menu.Item as={Link} to="/home" name="Home" />
-        <Menu.Item as={Link} to="/customer" name="Customers" />
-        <Menu.Item as={Link} to="/employee" name="Employees" />
-        <Menu.Item as={Link} to="/project" name="Projects" />
-        <Menu.Item as={Link} to="/job" name="Jobs" />
-        <Menu.Item as={Link} to="/jobhours" name="JobHours" />
-        {roles.includes(ROLES.ADMIN) && (
-          <Menu.Item as={Link} to="/admin" name="Admin" />
+        {LINKS.concat(roles.includes(ROLES.ADMIN) ? ADMIN_LINK : []).map(
+          ({ name, path, isExact }, index) => {
+            const isMatch = matchPath(props.location.pathname, {
+              path,
+              strict: false,
+              isExact
+            });
+            const active =
+              !_.isEmpty(isMatch) &&
+              (isExact ? isExact === isMatch.isExact : true);
+            return (
+              <Menu.Item
+                as={Link}
+                to={path}
+                className="myNavLink"
+                name={name}
+                active={active}
+                key={index}
+              >
+                {name}
+              </Menu.Item>
+            );
+          }
         )}
       </Menu.Menu>
     </Menu>
   );
 };
 
-export default withConsumer(Navbar);
+export default withRouter(withConsumer(Navbar));
