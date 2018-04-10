@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import { Container, Card } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Card, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 import { URLS } from "constants/index";
@@ -14,7 +15,7 @@ class ProjectDetails extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     this.getProject();
     this.getJobsForProject(this.props.match.params.id);
   }
@@ -33,6 +34,7 @@ class ProjectDetails extends Component {
 
   render() {
     const { project, jobs } = this.state;
+    const { id } = this.props.match.params;
 
     console.log(project);
 
@@ -42,6 +44,28 @@ class ProjectDetails extends Component {
           <Fragment>
             <Card fluid>
               <Card.Content>
+                <span style={{ float: "right" }}>
+                  <Button
+                    as={Link}
+                    to={`/project/edit/${id}`}
+                    circular
+                    color="vk"
+                    icon="edit"
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      axios
+                        .delete(`${URLS.PROJECT}/${id}`)
+                        .then(() => this.props.push("/project"))
+                        .catch(err => console.log("delete project", err));
+                    }}
+                    circular
+                    color="red"
+                    icon="delete"
+                  />
+                </span>
                 <label>Description: </label>
                 {project.description} <br />
                 <label>Customer: </label>

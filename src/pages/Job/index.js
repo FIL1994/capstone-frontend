@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Container, Button, Divider } from "semantic-ui-react";
+import { Container, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
@@ -18,7 +18,7 @@ class Job extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     this.getJobs();
   }
 
@@ -72,11 +72,15 @@ class Job extends Component {
 
     return (
       <Container>
-        <h1>Jobs ({sortedList.length})</h1>
-        <Divider />
-        <Button primary as={Link} to="/job/create" style={{ marginBottom: 20 }}>
-          Create Job
-        </Button>
+        <Button
+          primary
+          icon="add"
+          as={Link}
+          to="/job/create"
+          style={{ marginBottom: 20 }}
+          content="Add Job"
+        />
+
         <Button.Group>
           <Button
             color={filter === "" ? "black" : "violet"}

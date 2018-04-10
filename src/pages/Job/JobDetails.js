@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
 import { Container, Card, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
@@ -49,7 +50,7 @@ class JobDetails extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     this.getJob();
     this.getCustomers();
     this.getEmployees();
@@ -131,6 +132,7 @@ class JobDetails extends Component {
 
   render() {
     const { job } = this.state;
+    const { id } = this.props.match.params;
 
     console.log(job);
 
@@ -170,6 +172,28 @@ class JobDetails extends Component {
             </div>
             <Card fluid>
               <Card.Content>
+                <span style={{ float: "right" }}>
+                  <Button
+                    as={Link}
+                    to={`/job/edit/${id}`}
+                    circular
+                    color="vk"
+                    icon="edit"
+                    onClick={e => e.stopPropagation()}
+                  />
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      axios
+                        .delete(`${URLS.JOB}/${id}`)
+                        .then(() => this.props.push("/job"))
+                        .catch(err => console.log("delete job", err));
+                    }}
+                    circular
+                    color="red"
+                    icon="delete"
+                  />
+                </span>
                 <label>Description: </label>
                 {job.description} <br />
                 <label>Available: </label>

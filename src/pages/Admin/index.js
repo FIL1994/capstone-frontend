@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "semantic-ui-react";
+import { Container, Button, Form, Icon, Segment } from "semantic-ui-react";
 
 class Admin extends Component {
   componentDidMount() {
@@ -9,7 +9,17 @@ class Admin extends Component {
   render() {
     return (
       <Container>
-        <h2>Admin</h2>
+        <Segment secondary>
+          <Form>
+            <Form.Input inverted iconPosition="left" action size="small">
+              <Icon name="at" />
+              <input />
+              <Button primary type="submit">
+                Add User
+              </Button>
+            </Form.Input>
+          </Form>
+        </Segment>
       </Container>
     );
   }

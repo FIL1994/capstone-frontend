@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Container, Button, Divider } from "semantic-ui-react";
+import { Container, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
@@ -51,16 +51,14 @@ class Project extends Component {
 
     return (
       <Container>
-        <h1>Projects ({sortedList.length})</h1>
-        <Divider />
         <Button
           primary
+          icon="add"
           as={Link}
           to="/project/create"
           style={{ marginBottom: 20 }}
-        >
-          Create Project
-        </Button>
+          content="Add Project"
+        />
 
         <Table
           data={sortedList}

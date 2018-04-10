@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Container, Card } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Card, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 
@@ -12,7 +13,7 @@ class EmployeeDetails extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     axios
       .get(`${URLS.EMPLOYEE}/${this.props.match.params.id}`)
       .then(res => this.setState({ employee: res.data }))
@@ -21,6 +22,7 @@ class EmployeeDetails extends Component {
 
   render() {
     const { employee } = this.state;
+    const { id } = this.props.match.params;
 
     console.log(employee);
 
@@ -29,6 +31,28 @@ class EmployeeDetails extends Component {
         {!_.isEmpty(employee) && (
           <Card fluid>
             <Card.Content>
+              <span style={{ float: "right" }}>
+                <Button
+                  as={Link}
+                  to={`/employee/edit/${id}`}
+                  circular
+                  color="vk"
+                  icon="edit"
+                  onClick={e => e.stopPropagation()}
+                />
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    axios
+                      .delete(`${URLS.EMPLOYEE}/${id}`)
+                      .then(() => this.props.push("/employee"))
+                      .catch(err => console.log("delete employee", err));
+                  }}
+                  circular
+                  color="red"
+                  icon="delete"
+                />
+              </span>
               <label>First Name: </label>
               {employee.firstName} <br />
               <label>Last Name: </label>

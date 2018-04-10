@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Container, Card } from "semantic-ui-react";
+import { Link } from "react-router-dom";
+import { Container, Card, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 
@@ -12,7 +13,7 @@ class CustomerDetails extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     axios
       .get(`${URLS.CUSTOMER}/${this.props.match.params.id}`)
       .then(res => this.setState({ customer: res.data }))
@@ -21,12 +22,35 @@ class CustomerDetails extends Component {
 
   render() {
     const { customer } = this.state;
+    const { id } = this.props.match.params;
 
     return (
       <Container>
         {!_.isEmpty(customer) && (
           <Card fluid>
             <Card.Content>
+              <span style={{ float: "right" }}>
+                <Button
+                  as={Link}
+                  to={`/customer/edit/${id}`}
+                  circular
+                  color="vk"
+                  icon="edit"
+                  onClick={e => e.stopPropagation()}
+                />
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    axios
+                      .delete(`${URLS.CUSTOMER}/${id}`)
+                      .then(() => this.props.push("/customer"))
+                      .catch(err => console.log("delete customer", err));
+                  }}
+                  circular
+                  color="red"
+                  icon="delete"
+                />
+              </span>
               <label>First Name: </label>
               {customer.firstName} <br />
               <label>Last Name: </label>
