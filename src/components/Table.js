@@ -14,19 +14,22 @@ const Table = ({ ...props }) => {
 
   return (
     <WindowScroller>
-      {({ width, height, isScrolling, onChildScroll, scrollTop }) => (
-        <VirtualizedTable
-          autoHeight
-          height={height}
-          width={width}
-          isScrolling={isScrolling}
-          onChildScroll={onChildScroll}
-          scrollTop={scrollTop}
-          headerHeight={20}
-          rowHeight={40}
-          {...props}
-        />
-      )}
+      {wProps => {
+        const { width, height, isScrolling, onChildScroll, scrollTop } = wProps;
+        return (
+          <VirtualizedTable
+            autoHeight
+            height={height}
+            width={width}
+            isScrolling={isScrolling}
+            onChildScroll={onChildScroll}
+            scrollTop={scrollTop}
+            headerHeight={20}
+            rowHeight={40}
+            {...props}
+          />
+        );
+      }}
     </WindowScroller>
   );
 };

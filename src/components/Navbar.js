@@ -32,7 +32,7 @@ const Navbar = props => {
     : authorities.map(a => a.authority);
 
   return (
-    <Menu>
+    <Menu tabular>
       <Menu.Item
         children={
           <Link to="/home">
