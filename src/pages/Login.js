@@ -24,7 +24,6 @@ class Login extends Component {
   onChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   onSubmit = async () => {
-    console.log(this.props, this.state);
     const auth = {
       username: this.state.username,
       password: this.state.password
@@ -50,7 +49,8 @@ class Login extends Component {
       const userDetails = res.data;
       saveAuth(auth);
       this.props.context.actions.setUserDetails(userDetails);
-      this.props.history.push("/home");
+      this.props.history.push(this.props.context.state.requestedPage || "/home");
+      this.props.context.actions.resetRequestedPage();
     }
 
     console.log(res);

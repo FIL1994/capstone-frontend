@@ -16,6 +16,12 @@ const withAuth = (Component, roles) =>
 
     if (hasUserDetails && (userDetailsIsEmpty || !hasRole)) {
       props.history.push("/401");
+      
+      props.context.actions.setRequestedPage(
+        _.toString(props.location.pathname || "").slice(0, 4) === "/401"
+          ? "/home"
+          : props.location.pathname
+      );
     }
 
     return (

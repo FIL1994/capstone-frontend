@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, withRouter, matchPath } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Menu, Popup } from "semantic-ui-react";
 import _ from "lodash";
+import Avatar from "react-avatar";
 
 import RMS from "assets/RMS_No_Slogan.png";
 import { withConsumer } from "components/Context";
-import { ROLES } from "constants/roles";
+import { ROLES, URLS } from "constants/index";
+import axios from "helpers/axios";
 
 const LINKS = [
   { name: "Home", path: "/home", isExact: true },
@@ -19,10 +21,11 @@ const LINKS = [
 const ADMIN_LINK = { name: "Admin", path: "/admin/", isExact: false };
 
 const Navbar = props => {
-  const authorities =
-    props.context.state &&
-    props.context.state.userDetails &&
-    props.context.state.userDetails.authorities;
+  const userDetails = props.context.state
+    ? props.context.state.userDetails
+    : {};
+
+  const { authorities, username } = userDetails;
 
   const roles = !_.isArray(authorities)
     ? []
@@ -69,6 +72,35 @@ const Navbar = props => {
               </Menu.Item>
             );
           }
+        )}
+        {username && (
+          <Popup
+            hideOnScroll
+            trigger={
+              <Menu.Item>
+                <div
+                  style={{ cursor: "pointer", flex: "1", alignSelf: "stretch" }}
+                >
+                  <Avatar round name={username} size={40} textSizeRatio={2.5} />
+                </div>
+              </Menu.Item>
+            }
+            content={
+              <Menu fluid vertical>
+                <Menu.Item
+                  name="sign out"
+                  onClick={() => {
+                    axios.post(URLS.LOGOUT);
+                    localStorage.removeItem("auth");
+                    window.location = "/";
+                  }}
+                >
+                  Sign Out
+                </Menu.Item>
+              </Menu>
+            }
+            on="click"
+          />
         )}
       </Menu.Menu>
     </Menu>

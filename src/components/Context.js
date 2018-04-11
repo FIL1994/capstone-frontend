@@ -7,11 +7,16 @@ const Context = React.createContext();
 class Provider extends Component {
   state = {
     userDetails: {},
-    hasUserDetails: false
+    hasUserDetails: false,
+    requestedPage: undefined
   };
 
   actions = () => ({
-    setUserDetails: userDetails => this.setState({ userDetails })
+    setUserDetails: userDetails => this.setState({ userDetails }),
+    setRequestedPage: requestedPage =>
+      requestedPage !== this.state.requestedPage &&
+      this.setState({ requestedPage }),
+    resetRequestedPage: () => this.setState({ requestedPage: "/home" })
   });
 
   async componentDidMount() {
@@ -22,10 +27,12 @@ class Provider extends Component {
       res = { data: {} };
     }
 
-    this.setState({
-      userDetails: res.data,
-      hasUserDetails: true
-    });
+    if (!this.state.hasUserDetails) {
+      this.setState({
+        userDetails: res.data,
+        hasUserDetails: true
+      });
+    }
   }
 
   render() {
