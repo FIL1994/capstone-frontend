@@ -24,7 +24,6 @@ class Login extends Component {
   onChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   onSubmit = async () => {
-    console.log(this.props, this.state);
     const auth = {
       username: this.state.username,
       password: this.state.password

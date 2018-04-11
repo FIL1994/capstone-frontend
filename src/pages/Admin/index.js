@@ -24,7 +24,14 @@ class Admin extends Component {
     return (
       <Container>
         <Segment secondary>
-          <Form onSubmit={() => console.log("add user")}>
+          <Form
+            onSubmit={() =>
+              axios.post(URLS.USER, {
+                email: this.state.userName,
+                password: "password"
+              })
+            }
+          >
             <Form.Input inverted iconPosition="left" action size="small">
               <Icon name="at" />
               <input
