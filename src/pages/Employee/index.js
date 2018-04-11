@@ -5,6 +5,7 @@ import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
 import Table from "components/Table";
+import download from "downloadjs";
 
 import { URLS } from "constants/index";
 
@@ -17,7 +18,7 @@ class Employee extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     this.getEmployees();
   }
 
@@ -57,6 +58,20 @@ class Employee extends Component {
           to="/employee/create"
           style={{ marginBottom: 20 }}
           content="Add Employee"
+        />
+        <Button
+          primary
+          icon="download"
+          onClick={async () =>
+            download(
+              await axios.get(URLS.EMPLOYEE + "/csv", {
+                responseType: "blob"
+              }).data,
+              "employees.csv"
+            )
+          }
+          style={{ marginBottom: 20 }}
+          content="Export as CSV"
         />
 
         <Table

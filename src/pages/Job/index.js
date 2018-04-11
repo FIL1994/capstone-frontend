@@ -5,6 +5,7 @@ import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
 import Table from "components/Table";
+import download from "downloadjs";
 
 import { URLS } from "constants/index";
 
@@ -79,6 +80,20 @@ class Job extends Component {
           to="/job/create"
           style={{ marginBottom: 20 }}
           content="Add Job"
+        />
+        <Button
+          primary
+          icon="download"
+          onClick={async () =>
+            download(
+              await axios.get(URLS.JOB + "/csv", {
+                responseType: "blob"
+              }).data,
+              "jobs.csv"
+            )
+          }
+          style={{ marginBottom: 20 }}
+          content="Export as CSV"
         />
 
         <Button.Group>

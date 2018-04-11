@@ -5,6 +5,7 @@ import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
 import Table from "components/Table";
+import download from "downloadjs";
 
 import { URLS } from "../../constants";
 
@@ -17,7 +18,7 @@ class Project extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     this.getProjects();
   }
 
@@ -58,6 +59,20 @@ class Project extends Component {
           to="/project/create"
           style={{ marginBottom: 20 }}
           content="Add Project"
+        />
+        <Button
+          primary
+          icon="download"
+          onClick={async () =>
+            download(
+              await axios.get(URLS.PROJECT + "/csv", {
+                responseType: "blob"
+              }).data,
+              "projects.csv"
+            )
+          }
+          style={{ marginBottom: 20 }}
+          content="Export as CSV"
         />
 
         <Table

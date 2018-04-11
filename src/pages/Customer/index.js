@@ -5,6 +5,7 @@ import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
 import Table from "components/Table";
+import download from "downloadjs";
 
 import { URLS } from "constants/index";
 
@@ -57,6 +58,20 @@ class Customer extends Component {
           to="/customer/create"
           style={{ marginBottom: 20 }}
           content="Add Customer"
+        />
+        <Button
+          primary
+          icon="download"
+          onClick={async () =>
+            download(
+              await axios.get(URLS.CUSTOMER + "/csv", {
+                responseType: "blob"
+              }).data,
+              "customers.csv"
+            )
+          }
+          style={{ marginBottom: 20 }}
+          content="Export as CSV"
         />
 
         <Table
