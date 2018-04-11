@@ -8,8 +8,10 @@ import {
   List
 } from "semantic-ui-react";
 import axios from "helpers/axios";
+import _ from "lodash";
 import { URLS } from "constants/urls";
 import Avatar from "react-avatar";
+import { ToastContainer, toast } from "react-toastify";
 
 class Admin extends Component {
   state = {
@@ -26,22 +28,38 @@ class Admin extends Component {
   getUsers = async () => {
     const res = await axios.get(URLS.USER + "/all");
 
+    const users = (res.data || []).reverse();
+
     this.setState({
-      users: res.data || []
+      users
     });
   };
 
   addUser = async () => {
-    await axios.post(URLS.USER, {
-      email: this.state.userName,
-      password: "password"
-    });
+    if (_.isEmpty(this.state.userName)) return;
 
-    setTimeout(this.getUsers, 200);
+    try {
+      await axios.post(URLS.USER, {
+        email: this.state.userName,
+        password: "password"
+      });
+
+      toast.success(
+        <div>
+          Added user: {this.state.userName}
+          <br />Password is password
+        </div>
+      );
+
+      setTimeout(this.getUsers, 200);
+    } catch (e) {
+      console.log("error", e);
+      window.err = e;
+      toast.error("An error occurred.");
+    }
   };
 
   render() {
-
     return (
       <Container>
         <Segment secondary>
@@ -59,7 +77,7 @@ class Admin extends Component {
           </Form>
         </Segment>
         <Segment>
-          <List celled>
+          <List divided>
             {this.state.users.map(u => (
               <List.Item key={u.id}>
                 <Avatar round name={u.email} size={40} textSizeRatio={2.5} />
@@ -78,6 +96,7 @@ class Admin extends Component {
             ))}
           </List>
         </Segment>
+        <ToastContainer position={toast.POSITION.BOTTOM_CENTER} />
       </Container>
     );
   }
