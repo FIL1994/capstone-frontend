@@ -14,8 +14,16 @@ const withAuth = (Component, roles) =>
       hasRole = authorities.map(a => a.authority).includes(...roles);
     }
 
+    console.log("props", props);
+
     if (hasUserDetails && (userDetailsIsEmpty || !hasRole)) {
       props.history.push("/401");
+      
+      props.context.actions.setRequestedPage(
+        _.toString(props.location.pathname || "").slice(0, 4) === "/401"
+          ? "/home"
+          : props.location.pathname
+      );
     }
 
     return (

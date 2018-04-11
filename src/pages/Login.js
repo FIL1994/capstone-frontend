@@ -50,7 +50,8 @@ class Login extends Component {
       const userDetails = res.data;
       saveAuth(auth);
       this.props.context.actions.setUserDetails(userDetails);
-      this.props.history.push("/home");
+      this.props.history.push(this.props.context.state.requestedPage || "/home");
+      this.props.context.actions.resetRequestedPage();
     }
 
     console.log(res);
