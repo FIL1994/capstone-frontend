@@ -15,12 +15,18 @@ class Admin extends Component {
     this.getUsers();
   }
 
-  getUsers = async () =>
+  getUsers = async () => {
+    const res = await axios.get(URLS.USER + "/all");
+    console.log("get users", res);
+
     this.setState({
-      users: (await axios.get(URLS.USER + "/all").data) || []
+      users: res.data || []
     });
+  };
 
   render() {
+    console.log(this.state);
+
     return (
       <Container>
         <Segment secondary>
@@ -43,6 +49,9 @@ class Admin extends Component {
               </Button>
             </Form.Input>
           </Form>
+        </Segment>
+        <Segment>
+          {this.state.users.map(u => <div key={u.id}>{u.email}</div>)}
         </Segment>
       </Container>
     );
