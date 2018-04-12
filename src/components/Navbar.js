@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, withRouter, matchPath } from "react-router-dom";
-import { Menu, Popup } from "semantic-ui-react";
+import { Menu, Popup, Image } from "semantic-ui-react";
 import _ from "lodash";
 import Avatar from "react-avatar";
 
@@ -36,14 +36,10 @@ const Navbar = props => {
       <Menu.Item
         children={
           <Link to="/home">
-            <img
+            <Image
               src={RMS}
               alt="RMS"
-              style={{
-                height: 30,
-                padding: "5px 0 2px 5px",
-                transform: "scale(1.6, 1.6)"
-              }}
+              size="tiny"
             />
           </Link>
         }
@@ -75,14 +71,14 @@ const Navbar = props => {
         )}
         {username && (
           <Popup
-            style={{ right: 21, top: 58 }}
+            style={{ right: 22, top: 62 }}
             hideOnScroll
             trigger={
               <Menu.Item>
                 <div
                   style={{ cursor: "pointer", flex: "1", alignSelf: "stretch" }}
                 >
-                  <Avatar round name={username} size={40} textSizeRatio={2.5} />
+                  <Avatar round name={username} size={44} textSizeRatio={2.5} />
                 </div>
               </Menu.Item>
             }

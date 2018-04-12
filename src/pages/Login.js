@@ -4,13 +4,14 @@ import {
   Button,
   Form,
   Segment,
-  Message
+  Message,
+  Image
 } from "semantic-ui-react";
 import _ from "lodash";
 import { updateAuth, saveAuth } from "helpers/axios";
 
 import { withConsumer } from "components/Context";
-import RMS from "../assets/RMS_No_Slogan.png";
+import RMS from "../assets/RMS.png";
 import { URLS } from "constants/index";
 import "./login.css";
 
@@ -49,7 +50,9 @@ class Login extends Component {
       const userDetails = res.data;
       saveAuth(auth);
       this.props.context.actions.setUserDetails(userDetails);
-      this.props.history.push(this.props.context.state.requestedPage || "/home");
+      this.props.history.push(
+        this.props.context.state.requestedPage || "/home"
+      );
       this.props.context.actions.resetRequestedPage();
     }
 
@@ -61,14 +64,13 @@ class Login extends Component {
 
     return (
       <Container style={{ margin: "auto", textAlign: "center" }}>
-        <img
+        <Image
           src={RMS}
           alt="RMS"
+          centered
+          size="medium"
           style={{
-            height: 250,
-            padding: "5px 0 2px 5px",
-            display: "block",
-            margin: "auto"
+            marginTop: 30
           }}
         />
         <Segment textAlign="left" style={{ padding: "8%" }}>
