@@ -102,7 +102,7 @@ class Admin extends Component {
         <ToastContainer
           className="my-toast"
           position={toast.POSITION.BOTTOM_CENTER}
-          autoClose={20000000}
+          autoClose={5000}
         />
       </Container>
     );
