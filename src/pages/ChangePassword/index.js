@@ -8,9 +8,10 @@ import {
   Icon
 } from "semantic-ui-react";
 import _ from "lodash";
-import axios from "helpers/axios";
+import axios, { saveAuth } from "helpers/axios";
 import { URLS } from "constants/urls";
 import Toast, { toast } from "components/Toast";
+import { withConsumer } from "components/Context";
 
 class ChangePassword extends Component {
   state = {
@@ -41,6 +42,11 @@ class ChangePassword extends Component {
       toast.error("An error occurred");
       return;
     }
+
+    saveAuth(
+      { username: this.props.context.state.userDetails.username, password },
+      true
+    );
 
     toast.success("Successfully changed password");
   };
@@ -100,4 +106,4 @@ class ChangePassword extends Component {
   }
 }
 
-export default ChangePassword;
+export default withConsumer(ChangePassword);

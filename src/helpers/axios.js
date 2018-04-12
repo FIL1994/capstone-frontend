@@ -22,8 +22,11 @@ export const updateAuth = auth => {
   return axios;
 };
 
-export const saveAuth = auth => {
+export const saveAuth = (auth, update = false) => {
   localStorage.setItem("auth", JSON.stringify(auth));
+  if (update) {
+    updateAuth(auth);
+  }
 };
 
 export const logout = () => axios.post(URLS.LOGOUT);
