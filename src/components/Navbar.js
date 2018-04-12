@@ -75,6 +75,7 @@ const Navbar = props => {
         )}
         {username && (
           <Popup
+            style={{ right: 21, top: 58 }}
             hideOnScroll
             trigger={
               <Menu.Item>
@@ -86,7 +87,12 @@ const Navbar = props => {
               </Menu.Item>
             }
             content={
-              <Menu fluid vertical>
+              <Menu fluid vertical style={{ textAlign: "center" }}>
+                <Menu.Item
+                  name="Change Password"
+                  as={Link}
+                  to="/changepassword"
+                />
                 <Menu.Item
                   name="sign out"
                   onClick={() => {

@@ -29,6 +29,7 @@ import EditJobHours from "pages/JobHours/EditJobHours";
 import JobHoursDetails from "pages/JobHours/JobHoursDetails";
 
 import Admin from "pages/Admin";
+import ChangePassword from "pages/ChangePassword";
 import Page_401 from "pages/401";
 
 import { Provider } from "components/Context";
@@ -119,6 +120,10 @@ class App extends Component {
                       component={withAuth(Admin, [ROLES.ADMIN])}
                     />
 
+                    <Route
+                      path="/changepassword"
+                      component={withAuth(ChangePassword)}
+                    />
                     <Route path="/401" component={Page_401} />
 
                     <Redirect to="/" />
