@@ -2,13 +2,3 @@ body {
   -webkit-font-smoothing: antialiased;
   background-color: #fbfbfb;
 }
-
-.ui.tabular.menu {
-  background-color: white;
-}
-
-.ui.tabular.menu .active.item {
-  margin-top: 5px;
-  border-radius: 0.5rem 0.5rem 0 0 !important;
-  background: #fbfbfb;
-}
