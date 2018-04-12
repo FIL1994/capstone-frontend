@@ -65,9 +65,9 @@ class Admin extends Component {
   render() {
     return (
       <Container>
-        <Segment secondary>
+        <Segment attached="top" secondary>
           <Form onSubmit={this.addUser}>
-            <Form.Input inverted iconPosition="left" action size="small">
+            <Form.Input inverted iconPosition="left" action size="small" placeholder="username or email">
               <Icon name="at" />
               <input
                 value={this.state.userName}
@@ -79,7 +79,7 @@ class Admin extends Component {
             </Form.Input>
           </Form>
         </Segment>
-        <Segment>
+        <Segment attached>
           <List divided>
             {this.state.users.map(u => (
               <List.Item key={u.id}>
