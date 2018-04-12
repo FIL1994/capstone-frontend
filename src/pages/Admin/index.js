@@ -36,7 +36,10 @@ class Admin extends Component {
   };
 
   addUser = async () => {
-    if (_.isEmpty(this.state.userName)) return;
+    if (_.isEmpty(this.state.userName)) {
+      toast.error("You must enter a username to add a user");
+      return;
+    }
 
     try {
       await axios.post(URLS.USER, {
@@ -55,7 +58,7 @@ class Admin extends Component {
     } catch (e) {
       console.log("error", e);
       window.err = e;
-      toast.error("An error occurred.");
+      toast.error("An error occurred");
     }
   };
 
@@ -96,7 +99,11 @@ class Admin extends Component {
             ))}
           </List>
         </Segment>
-        <ToastContainer position={toast.POSITION.BOTTOM_CENTER} />
+        <ToastContainer
+          className="my-toast"
+          position={toast.POSITION.BOTTOM_CENTER}
+          autoClose={20000000}
+        />
       </Container>
     );
   }
