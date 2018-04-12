@@ -11,6 +11,10 @@
   animation-duration: 300ms;
 }
 
+.ui.tabular.menu .item:hover:not(.active) {
+  text-decoration: underline;
+}
+
 @keyframes border-radius-bounce {
   0% {
     border-radius: 0.22rem 0.22rem 0 0;
