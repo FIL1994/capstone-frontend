@@ -8,6 +8,9 @@ import {
   Icon
 } from "semantic-ui-react";
 import _ from "lodash";
+import axios from "helpers/axios";
+import { URLS } from "constants/urls";
+import Toast, { toast } from "components/Toast";
 
 class ChangePassword extends Component {
   state = {
@@ -18,10 +21,34 @@ class ChangePassword extends Component {
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
 
+  onSubmit = async () => {
+    const { password, confirmPassword } = this.state;
+
+    if (_.isEmpty(password)) {
+      toast.error("You must enter a password");
+      return;
+    } else if (_.isEmpty(confirmPassword)) {
+      toast.error("Please confirm your password");
+      return;
+    } else if (password !== confirmPassword) {
+      toast.error("Your passwords do not match");
+      return;
+    }
+
+    try {
+      await axios.put(URLS.USER, { password });
+    } catch (e) {
+      toast.error("An error occurred");
+      return;
+    }
+
+    toast.success("Successfully changed password");
+  };
+
   getMessage = () => {
     const { touched, password, confirmPassword } = this.state;
 
-    if (!touched || _.isEmpty(confirmPassword)) return;
+    if (!touched) return;
 
     return password !== confirmPassword ? (
       <Message attached="bottom" visible warning>
@@ -43,7 +70,7 @@ class ChangePassword extends Component {
     return (
       <Container>
         <Segment attached="top">
-          <Form>
+          <Form onSubmit={this.onSubmit}>
             <Form.Input
               type="password"
               label="New Password"
@@ -67,6 +94,7 @@ class ChangePassword extends Component {
           </Form>
         </Segment>
         {message}
+        <Toast />
       </Container>
     );
   }

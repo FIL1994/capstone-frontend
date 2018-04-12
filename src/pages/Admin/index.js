@@ -11,7 +11,7 @@ import axios from "helpers/axios";
 import _ from "lodash";
 import { URLS } from "constants/urls";
 import Avatar from "react-avatar";
-import { ToastContainer, toast } from "react-toastify";
+import Toast, { toast } from "components/Toast";
 
 class Admin extends Component {
   state = {
@@ -67,7 +67,13 @@ class Admin extends Component {
       <Container>
         <Segment attached="top" secondary>
           <Form onSubmit={this.addUser}>
-            <Form.Input inverted iconPosition="left" action size="small" placeholder="username or email">
+            <Form.Input
+              inverted
+              iconPosition="left"
+              action
+              size="small"
+              placeholder="username or email"
+            >
               <Icon name="at" />
               <input
                 value={this.state.userName}
@@ -99,11 +105,7 @@ class Admin extends Component {
             ))}
           </List>
         </Segment>
-        <ToastContainer
-          className="my-toast"
-          position={toast.POSITION.BOTTOM_CENTER}
-          autoClose={5000}
-        />
+        <Toast />
       </Container>
     );
   }
