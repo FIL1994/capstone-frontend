@@ -1,8 +1,14 @@
 body {
   -webkit-font-smoothing: antialiased;
+  background-color: #f8f8f8;
+}
+
+.ui.tabular.menu {
+  background-color: white;
 }
 
 .ui.tabular.menu .active.item {
   margin-top: 5px;
   border-radius: 0.5rem 0.5rem 0 0 !important;
+  background: #f8f8f8;
 }
