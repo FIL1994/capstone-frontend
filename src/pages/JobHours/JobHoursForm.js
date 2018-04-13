@@ -4,7 +4,9 @@ import { Form, Button } from "semantic-ui-react";
 import axios from "axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
+import moment from "moment";
 
+import DatePicker from "components/DatePicker";
 import { URLS } from "../../constants";
 
 class JobHoursForm extends Component {
@@ -61,14 +63,15 @@ class JobHoursForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <Form.Input
-          fluid
-          label="Date"
-          name="date"
-          value={date}
-          onChange={this.handleChange}
-          style={{ marginBottom: 20 }}
-        />
+        <div className="field" style={{ marginBottom: 20 }}>
+          <label>Date</label>
+          <DatePicker
+            onDateChange={date =>
+              date && this.setState({ date: date.format() })
+            }
+            initialDate={moment(date)}
+          />
+        </div>
         <Form.Input
           fluid
           label="Description"
