@@ -4,7 +4,9 @@ import { Form, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 import Select from "react-virtualized-select";
+import moment from "moment";
 
+import DatePicker from "components/DatePicker";
 import { URLS } from "../../constants";
 
 class ProjectForm extends Component {
@@ -56,14 +58,15 @@ class ProjectForm extends Component {
           onChange={this.handleChange}
           style={{ marginBottom: 20 }}
         />
-        <Form.Input
-          fluid
-          label="Date Opened"
-          name="dateOpened"
-          value={this.state.dateOpened}
-          onChange={this.handleChange}
-          style={{ marginBottom: 20 }}
-        />
+        <div className="field" style={{ marginBottom: 20 }}>
+          <label>Date Opened</label>
+          <DatePicker
+            onDateChange={date =>
+              date && this.setState({ dateOpened: date.format() })
+            }
+            initialDate={moment(this.state.dateOpened)}
+          />
+        </div>
         <label>Customer</label>
         <Select
           options={this.state.customers}
