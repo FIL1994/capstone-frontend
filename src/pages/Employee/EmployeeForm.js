@@ -4,7 +4,7 @@ import { Form, Button } from "semantic-ui-react";
 import _ from "lodash";
 import moment from "moment";
 
-import DatePicker from "../../components/DatePicker";
+import DatePicker from "components/DatePicker";
 
 class EmployeeForm extends Component {
   state = {
@@ -88,12 +88,15 @@ class EmployeeForm extends Component {
           value={email}
           onChange={this.handleChange}
         />
-        <DatePicker
-          onDateChange={date =>
-            date && this.setState({ birthDate: date.format() })
-          }
-          initialDate={moment(birthDate)}
-        />
+        <div className="field">
+          <label>Birth Date</label>
+          <DatePicker
+            onDateChange={date =>
+              date && this.setState({ birthDate: date.format() })
+            }
+            initialDate={moment(birthDate)}
+          />
+        </div>
         <Form.Input
           fluid
           label="Address"
