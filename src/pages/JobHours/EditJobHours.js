@@ -15,9 +15,9 @@ class EditJobHours extends Component {
     window.scrollTo(0, 0);
     
     axios
-      .get(`${URLS.JOBHOURS}/${this.props.match.params.id}`)
+      .get(`${URLS.JOB_HOURS}/${this.props.match.params.id}`)
       .then(res => this.setState({ jobHours: res.data }))
-      .catch(() => this.props.history.push("/jobhours"));
+      .catch((e) => this.props.history.push("/jobhours"));
   }
 
   handleSubmit = async newJobHours => {

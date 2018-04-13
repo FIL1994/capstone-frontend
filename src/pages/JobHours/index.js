@@ -62,7 +62,7 @@ class JobHours extends Component {
         >
           <Column label="ID" dataKey="id" width={60} />
           <Column label="Description" dataKey="description" width={180} />
-          <Column label="Date" dataKey="date" width={60} />
+          <Column label="Date" dataKey="date" width={120} />
           <Column label="Hours" dataKey="hours" width={60} />
           <Column label="Double Time" dataKey="doubleTime" width={120} />
           <Column label="Over Time" dataKey="overTime" width={120} />
