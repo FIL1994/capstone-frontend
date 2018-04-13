@@ -1,18 +1,23 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { Container, Button, Divider } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
+import { Column, SortDirection } from "react-virtualized";
+import Table from "components/Table";
+
 import { URLS } from "constants/index";
 
 class JobHours extends Component {
   state = {
-    jobHours: []
+    jobHours: [],
+    sortBy: "id",
+    sortDirection: SortDirection.ASC
   };
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    
+
     this.getJobHours();
   }
 
@@ -21,66 +26,80 @@ class JobHours extends Component {
       jobHours: (await axios.get(URLS.JOB_HOURS)).data
     });
 
-  render() {
-    const { jobHours } = this.state;
+  sortTable = ({ sortBy, sortDirection }) =>
+    this.setState({ sortBy, sortDirection });
 
-    console.log("jobhours", jobHours);
+  render() {
+    const { jobHours, sortBy, sortDirection } = this.state;
+
+    const sortedList = !_.isArray(jobHours)
+      ? []
+      : _.orderBy(
+          jobHours,
+          sortBy,
+          sortDirection === SortDirection.ASC ? "asc" : "desc"
+        );
 
     return (
       <Container>
-        <h1>Hours</h1>
-        <Divider />
         <Button
           primary
+          icon="add"
           as={Link}
-          to="/jobHours/create"
+          to="/jobhours/create"
           style={{ marginBottom: 20 }}
+          content="Add Hours"
+        />
+
+        <Table
+          data={sortedList}
+          onRowClick={({ rowData: { id } }) =>
+            this.props.history.push(`/jobhours/${id}`)
+          }
+          sort={this.sortTable}
+          sortBy={sortBy}
+          sortDirection={sortDirection}
         >
-          Add Hours
-        </Button>
-        {!_.isEmpty(jobHours) &&
-          jobHours.map(j => (
-            <div key={j.id}>
-              {j.date} {j.description} {j.hours} {j.overtime} {j.doubletime}
-              {j.job && (
-                <Link to={`/job/${j.job.id}`} color="blue">
-                  Job
-                </Link>
-              )}
-              {j.employee && (
-                <Link to={`/employee/${j.employee.id}`} color="blue">
-                  Employee
-                </Link>
-              )}
-              <Button.Group fluid>
+          <Column label="ID" dataKey="id" width={60} />
+          <Column label="Description" dataKey="description" width={180} />
+          <Column label="Date" dataKey="date" width={60} />
+          <Column label="Hours" dataKey="hours" width={60} />
+          <Column label="Double Time" dataKey="doubleTime" width={120} />
+          <Column label="Over Time" dataKey="overTime" width={120} />
+          <Column
+            disableSort
+            label="Actions"
+            dataKey="action"
+            width={120}
+            headerClassName="center-cell"
+            className="center-cell"
+            cellDataGetter={({ rowData: { id } }) => id}
+            cellRenderer={({ cellData: id }) => (
+              <Fragment>
                 <Button
                   as={Link}
-                  to={`/jobhours/${j.id}`}
-                  color="green"
-                  content="View"
-                />
-              </Button.Group>
-              <Button.Group fluid>
-                <Button
-                  as={Link}
-                  to={`/jobhours/edit/${j.id}`}
-                  color="yellow"
-                  content="Edit"
+                  to={`/jobhours/edit/${id}`}
+                  circular
+                  color="vk"
+                  icon="edit"
+                  onClick={e => e.stopPropagation()}
                 />
                 <Button
-                  onClick={() =>
+                  onClick={e => {
+                    e.stopPropagation();
                     axios
-                      .delete(`http://207.148.28.48:3000/jobhours/${j.id}`)
+                      .delete(`${URLS.JOB_HOURS}/${id}`)
                       .then(() => this.getJobHours())
-                      .catch(err => console.log("delete jobHours", j, err))
-                  }
+                      .catch(err => console.log("delete job hours", err));
+                  }}
+                  circular
                   color="red"
-                  content="Delete"
+                  icon="delete"
                 />
-              </Button.Group>
-              <hr />
-            </div>
-          ))}
+              </Fragment>
+            )}
+          />
+        </Table>
       </Container>
     );
   }
