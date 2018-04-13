@@ -111,13 +111,15 @@ class EmployeeForm extends Component {
           value={city}
           onChange={this.handleChange}
         />
-        <Form.Input
-          fluid
-          label="Payroll Start Date"
-          name="payrollStartDate"
-          value={payrollStartDate}
-          onChange={this.handleChange}
-        />
+        <div className="field">
+          <label>Payroll Start Date</label>
+          <DatePicker
+            onDateChange={date =>
+              date && this.setState({ payrollStartDate: date.format() })
+            }
+            initialDate={moment(payrollStartDate)}
+          />
+        </div>
         <Form.Input
           fluid
           label="Phone Number"
