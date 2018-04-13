@@ -86,9 +86,9 @@ class Job extends Component {
           icon="download"
           onClick={async () =>
             download(
-              await axios.get(URLS.JOB + "/csv", {
+              (await axios.get(URLS.JOB + "/csv", {
                 responseType: "blob"
-              }).data,
+              })).data,
               "jobs.csv"
             )
           }

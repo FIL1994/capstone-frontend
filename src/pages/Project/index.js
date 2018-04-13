@@ -65,9 +65,9 @@ class Project extends Component {
           icon="download"
           onClick={async () =>
             download(
-              await axios.get(URLS.PROJECT + "/csv", {
+              (await axios.get(URLS.PROJECT + "/csv", {
                 responseType: "blob"
-              }).data,
+              })).data,
               "projects.csv"
             )
           }

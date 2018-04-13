@@ -64,9 +64,9 @@ class Employee extends Component {
           icon="download"
           onClick={async () =>
             download(
-              await axios.get(URLS.EMPLOYEE + "/csv", {
+              (await axios.get(URLS.EMPLOYEE + "/csv", {
                 responseType: "blob"
-              }).data,
+              })).data,
               "employees.csv"
             )
           }
@@ -120,28 +120,6 @@ class Employee extends Component {
             )}
           />
         </Table>
-
-        {/*employees.map(e => (
-          <div key={e.id}>
-            {e.firstName} {e.lastName} <br />
-            {e.email}
-            <Button.Group fluid>
-              <Button
-                as={Link}
-                to={`/employee/${e.id}`}
-                color="green"
-                content="View"
-              />
-              <Button
-                as={Link}
-                to={`/employee/edit/${e.id}`}
-                color="yellow"
-                content="Edit"
-              />
-            </Button.Group>
-            <hr />
-          </div>
-        ))*/}
       </Container>
     );
   }
