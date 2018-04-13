@@ -10,8 +10,9 @@ import {
 import axios from "helpers/axios";
 import _ from "lodash";
 import { URLS } from "constants/urls";
-import Avatar from "react-avatar";
 import Toast, { toast } from "components/Toast";
+
+import UserListItem from "./UserListItem";
 
 class Admin extends Component {
   state = {
@@ -87,22 +88,7 @@ class Admin extends Component {
         </Segment>
         <Segment attached>
           <List divided>
-            {this.state.users.map(u => (
-              <List.Item key={u.id}>
-                <Avatar round name={u.email} size={40} textSizeRatio={2.5} />
-                <span style={{ marginLeft: 20 }}>{u.email}</span>
-                <List
-                  horizontal
-                  size="small"
-                  style={{ marginLeft: 60, display: "block", marginBottom: 5 }}
-                >
-                  {u.roles &&
-                    u.roles.map(r => (
-                      <List.Item key={r.id}>{r.role}</List.Item>
-                    ))}
-                </List>
-              </List.Item>
-            ))}
+            {this.state.users.map(u => <UserListItem key={u.id} u={u} />)}
           </List>
         </Segment>
         <Toast />
