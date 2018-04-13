@@ -79,6 +79,7 @@ class Login extends Component {
               placeholder="Username/Email"
               name="username"
               onChange={this.onChange}
+              autoFocus
             />
             <Form.Input
               placeholder="Password"

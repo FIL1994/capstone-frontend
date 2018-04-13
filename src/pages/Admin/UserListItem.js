@@ -34,6 +34,20 @@ class UserListItem extends Component {
     this.props.getUsers();
   };
 
+  resetPassword = async () => {
+    try {
+      await axios.post(`${URLS.USER}/${this.props.user.id}/resetpassword`);
+    } catch (e) {
+      this.props.toast.error(
+        "An error occurred resetting the password for: " + this.props.user.email
+      );
+      return;
+    }
+    this.props.toast.success(
+      `Reset password for ${this.props.user.email} to: password`
+    );
+  };
+
   render() {
     const { user, roles } = this.props;
     const { edit } = this.state;
@@ -55,7 +69,14 @@ class UserListItem extends Component {
           />
           <Popup
             inverted
-            trigger={<Button circular color="teal" icon="privacy" />}
+            trigger={
+              <Button
+                circular
+                color="teal"
+                icon="privacy"
+                onClick={this.resetPassword}
+              />
+            }
             content="reset password"
           />
         </div>
