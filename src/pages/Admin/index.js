@@ -98,7 +98,13 @@ class Admin extends Component {
         <Segment attached>
           <List divided>
             {this.state.users.map(u => (
-              <UserListItem key={u.id} u={u} roles={this.state.roles} />
+              <UserListItem
+                key={u.id}
+                user={u}
+                roles={this.state.roles}
+                toast={toast}
+                getUsers={this.getUsers}
+              />
             ))}
           </List>
         </Segment>
