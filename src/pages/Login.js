@@ -64,15 +64,17 @@ class Login extends Component {
 
     return (
       <Container style={{ margin: "auto", textAlign: "center" }}>
-        <Image
-          src={RMS}
-          alt="RMS"
-          centered
-          size="medium"
-          style={{
-            marginTop: 30
-          }}
-        />
+        <div style={{ minHeight: 235 }}>
+          <Image
+            src={RMS}
+            alt="RMS"
+            centered
+            size="medium"
+            style={{
+              marginTop: 30
+            }}
+          />
+        </div>
         <Segment textAlign="left" style={{ padding: "8%" }}>
           <Form className="login-form" onSubmit={this.onSubmit}>
             <Form.Input
