@@ -17,13 +17,15 @@ import UserListItem from "./UserListItem";
 class Admin extends Component {
   state = {
     users: [],
-    userName: ""
+    userName: "",
+    roles: []
   };
 
   componentDidMount() {
     window.scrollTo(0, 0);
 
     this.getUsers();
+    this.getRoles();
   }
 
   getUsers = async () => {
@@ -33,6 +35,13 @@ class Admin extends Component {
 
     this.setState({
       users
+    });
+  };
+
+  getRoles = async () => {
+    const res = await axios.get(URLS.ROLE);
+    this.setState({
+      roles: res.data
     });
   };
 
@@ -88,7 +97,9 @@ class Admin extends Component {
         </Segment>
         <Segment attached>
           <List divided>
-            {this.state.users.map(u => <UserListItem key={u.id} u={u} />)}
+            {this.state.users.map(u => (
+              <UserListItem key={u.id} u={u} roles={this.state.roles} />
+            ))}
           </List>
         </Segment>
         <Toast />

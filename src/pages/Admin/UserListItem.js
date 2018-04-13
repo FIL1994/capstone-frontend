@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Button, List, Popup } from "semantic-ui-react";
 import Avatar from "react-avatar";
 
@@ -38,5 +39,10 @@ class UserListItem extends Component {
     );
   }
 }
+
+UserListItem.propTypes = {
+  u: PropTypes.object.isRequired,
+  roles: PropTypes.array.isRequired
+};
 
 export default UserListItem;

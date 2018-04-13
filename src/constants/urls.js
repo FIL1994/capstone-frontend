@@ -8,5 +8,6 @@ export const URLS = {
   MATERIAL: ROOT_URL + "/material",
   JOB_HOURS: ROOT_URL + "/jobhours",
   LOGOUT: ROOT_URL + "/logmeout",
-  USER: ROOT_URL + "/user"
+  USER: ROOT_URL + "/user",
+  ROLE: ROOT_URL + "/role"
 };
