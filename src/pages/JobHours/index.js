@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
-import { Container, Button, Divider } from "semantic-ui-react";
+import { Container, Button } from "semantic-ui-react";
 import axios from "helpers/axios";
 import _ from "lodash";
 import { Column, SortDirection } from "react-virtualized";
